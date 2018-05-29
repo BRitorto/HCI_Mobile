@@ -3,5 +3,6 @@
     <string name="home">Home</string>
     <string name="rooms">Rooms</string>
     <string name="routines">Routines</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
 
 </resources>
