@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
+import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
+
 public class BottomNavigationActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -39,6 +42,13 @@ public class BottomNavigationActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        testAPI();
     }
+
+    public void testAPI(){
+        SingletonAPI api = SingletonAPI.getInstance(this);
+        DevicesAPI.getAllDevices(this);
+    }
+
 
 }

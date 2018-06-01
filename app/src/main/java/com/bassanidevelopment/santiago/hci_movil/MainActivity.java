@@ -8,17 +8,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
+import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
-
+        System.out.println("here runnning");
 
 
         //displayBottomNav();
     }
+
+
+
 
     /*public void displayBottomNav(){
         BottomNavigationView bottomNavigationView = (BottomNavigationView)

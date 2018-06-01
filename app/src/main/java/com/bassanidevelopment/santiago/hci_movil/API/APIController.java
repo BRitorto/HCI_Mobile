@@ -4,15 +4,19 @@ import android.content.Context;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
+
 
 import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+
 
 public class APIController {
 
@@ -22,13 +26,13 @@ public class APIController {
     private RequestQueue queue;
     private String headers;
 
-
     public APIController(String baseUrl, String headers, Context context)
     {
 
         this.baseUrl = baseUrl;
         this.headers = headers;
         this.queue = Volley.newRequestQueue(context);
+
     }
 
 
@@ -37,7 +41,7 @@ public class APIController {
         RequestFuture<JSONObject> requestFuture= RequestFuture.newFuture();
         JSONObject response = null;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, this.baseUrl,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, this.baseUrl+query,
                                 new JSONObject(), requestFuture,requestFuture);
         queue.add(request);
 
@@ -64,7 +68,7 @@ public class APIController {
         RequestFuture<JSONObject> requestFuture= RequestFuture.newFuture();
         JSONObject response = null;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, this.baseUrl,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, this.baseUrl+query,
                 model, requestFuture,requestFuture);
         queue.add(request);
 
@@ -89,12 +93,28 @@ public class APIController {
 
     public JSONObject postRequest(String query , JSONObject model)
     {
-        RequestFuture<JSONObject> requestFuture= RequestFuture.newFuture();
+        RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
         JSONObject response = null;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, this.baseUrl,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, this.baseUrl+query,
                 model, requestFuture,requestFuture);
-        queue.add(request);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.POST, this.baseUrl+query, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+
+                    }
+                });
+
+        queue.add(jsonObjectRequest);
 
         try {
             response = requestFuture.get(10, TimeUnit.SECONDS);
@@ -120,7 +140,7 @@ public class APIController {
         RequestFuture<JSONObject> requestFuture= RequestFuture.newFuture();
         JSONObject response = null;
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, this.baseUrl,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, this.baseUrl+query,
                 new JSONObject(), requestFuture,requestFuture);
         queue.add(request);
 
