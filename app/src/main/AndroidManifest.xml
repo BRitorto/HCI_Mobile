@@ -20,6 +20,9 @@
         <activity
             android:name=".MainActivity"
             android:label="MainCtivity" />
+        <activity
+            android:name=".API.LoadingScreenActivity"
+            android:label="Loading" />
     </application>
 
 </manifest>

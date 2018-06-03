@@ -7,11 +7,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.bassanidevelopment.santiago.hci_movil.Model.Device;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DevicesAPI {
 
@@ -29,13 +31,28 @@ public class DevicesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("getAllDevices", response.toString());
+                        System.out.println("me here");
                         try {
                             JSONArray devices = response.getJSONArray("devices");
+                            final List<JSONObject> deviceList = new ArrayList<>();
                             for(int i = 0; i < devices.length(); i++){
                                 JSONObject device = devices.getJSONObject(i);
+                                deviceList.add(device);
                                 }
+
+                            APIResponse devs = new APIResponse() {
+                                @Override
+                                public Object parseResponse() {
+                                    return  deviceList;
+                                }
+                            };
+
+                            SingletonResponse resp = SingletonResponse.getInstance();
+                            Log.d("API", "Reponse devices were retrieved");
+                            resp.setResponse(devs);
                         }catch (Exception e){
                             Log.d("ERROR","something went wrong");
+                            System.out.println("ERROOR!!!!!!!!!!!!");
                         }
 
                     }
@@ -48,6 +65,12 @@ public class DevicesAPI {
                 });
 
         SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "getAllDevices");
+    }
+
+
+    public static Object getResponse() throws InterruptedException {
+        SingletonResponse apiResponse = SingletonResponse.getInstance();
+        return apiResponse.getResponse();
     }
 
     /**

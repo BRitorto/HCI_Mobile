@@ -1,5 +1,6 @@
 package com.bassanidevelopment.santiago.hci_movil;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.bassanidevelopment.santiago.hci_movil.API.APIController;
 import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
+import com.bassanidevelopment.santiago.hci_movil.API.LoadingScreenActivity;
 import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
+import com.bassanidevelopment.santiago.hci_movil.API.SingletonResponse;
 
 public class BottomNavigationActivity extends AppCompatActivity {
 
@@ -19,12 +23,16 @@ public class BottomNavigationActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.home);
                     return true;
                 case R.id.navigation_rooms:
+                    testAPI();
                     mTextMessage.setText(R.string.rooms);
+
+
                     return true;
                 case R.id.navigation_routines:
                     mTextMessage.setText(R.string.routines);
@@ -38,16 +46,16 @@ public class BottomNavigationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_navigation);
-
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        testAPI();
+
+
     }
 
     public void testAPI(){
-        SingletonAPI api = SingletonAPI.getInstance(this);
-        DevicesAPI.getAllDevices(this);
+        Intent intent = new Intent(this, LoadingScreenActivity.class);
+        startActivity(intent);
     }
 
 
