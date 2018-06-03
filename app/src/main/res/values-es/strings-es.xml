@@ -4,4 +4,6 @@
     <string name="home">Principal</string>
     <string name="rooms">Habitaciones</string>
     <string name="routines">Rutinas</string>
+    <string name="settings">Configuración</string>
+
 </resources>
