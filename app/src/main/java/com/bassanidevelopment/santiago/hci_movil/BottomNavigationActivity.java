@@ -23,16 +23,12 @@ public class BottomNavigationActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     mTextMessage.setText(R.string.home);
                     return true;
                 case R.id.navigation_rooms:
-                    testAPI();
                     mTextMessage.setText(R.string.rooms);
-
-
                     return true;
                 case R.id.navigation_routines:
                     mTextMessage.setText(R.string.routines);
@@ -45,7 +41,8 @@ public class BottomNavigationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_navigation);
+        setContentView(R.layout.activity_main);
+
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
