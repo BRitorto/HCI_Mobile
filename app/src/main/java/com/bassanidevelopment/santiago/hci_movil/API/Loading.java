@@ -1,14 +1,16 @@
 package com.bassanidevelopment.santiago.hci_movil.API;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 import com.bassanidevelopment.santiago.hci_movil.BottomNavigationActivity;
 import com.bassanidevelopment.santiago.hci_movil.R;
 
-public class LoadingScreenActivity extends Activity {
+public class Loading extends AppCompatActivity {
+
+
 
     //Introduce a delay
     private final int WAIT_TIME = 2500;
@@ -19,16 +21,16 @@ public class LoadingScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         uiHandler = new Handler(); // anything posted to this handler will run on the UI Thread
         System.out.println("LoadingScreenActivity  screen started");
-        setContentView(R.layout.loading_screen);
+        setContentView(R.layout.activity_loading);
         //findViewById(R.id.mainSpinner1).setVisibility(View.VISIBLE);
 
         final Runnable onUi = new Runnable() {
             @Override
             public void run() {
                 // this will run on the main UI thread
-                Intent mainIntent = new Intent(LoadingScreenActivity.this, BottomNavigationActivity.class);
-                LoadingScreenActivity.this.startActivity(mainIntent);
-                LoadingScreenActivity.this.finish();
+                Intent mainIntent = new Intent(Loading.this, BottomNavigationActivity.class);
+                Loading.this.startActivity(mainIntent);
+                Loading.this.finish();
             }
         };
 
@@ -41,7 +43,7 @@ public class LoadingScreenActivity extends Activity {
                     // This will run on a background thread
                     //Simulating a long running task
                     Thread.sleep(1000);
-                    System.out.println("Going to Profile Data");
+                    System.out.println("Going to Data");
                     uiHandler.post(onUi);
                 }catch (Exception e){
                     System.out.println("se cago");
@@ -51,6 +53,4 @@ public class LoadingScreenActivity extends Activity {
 
         new Thread(background).start();
     }
-
 }
-

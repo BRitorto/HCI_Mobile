@@ -1,6 +1,8 @@
 package com.bassanidevelopment.santiago.hci_movil.Model;
 
 
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,10 +13,12 @@ public class Device {
     private JSONObject meta;
 
     public Device(JSONObject object) throws JSONException {
+        Gson gson = new Gson();
         this.name = object.getString("name");
         this.id = object.getString("id");
         this.typeId = object.getString("typeId");
-        this.meta = object.getJSONObject("meta");
+        String metaString = object.getString("meta");
+        this.meta =  gson.fromJson(metaString,JSONObject.class);
     }
 
 

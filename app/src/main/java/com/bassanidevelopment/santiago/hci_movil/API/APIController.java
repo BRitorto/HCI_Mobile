@@ -1,6 +1,7 @@
 package com.bassanidevelopment.santiago.hci_movil.API;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -9,6 +10,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.JsonObject;
 
 
 import org.json.JSONObject;
@@ -18,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 
-public class APIController {
+public class APIController extends AsyncTask<String, Void, JSONObject> {
 
 
 
@@ -44,9 +46,11 @@ public class APIController {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, this.baseUrl+query,
                                 new JSONObject(), requestFuture,requestFuture);
         queue.add(request);
-
+        System.out.println(Thread.currentThread().getId());
         try {
             response = requestFuture.get(10, TimeUnit.SECONDS);
+            System.out.println("the response was");
+            System.out.println(response);
         }
         catch (InterruptedException e)
         {
@@ -163,6 +167,9 @@ public class APIController {
     }
 
 
-
+    @Override
+    protected JSONObject doInBackground(String... strings) {
+        return getRequest(strings[0]);
+    }
 
 }

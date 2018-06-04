@@ -1,19 +1,23 @@
 package com.bassanidevelopment.santiago.hci_movil;
 
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
-import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
+import com.bassanidevelopment.santiago.hci_movil.Fragments.MostUsedFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
+
+    private ViewPager viewPager;
+    private SectionStatePageAdapter sectionStatePageAdapter;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -22,13 +26,16 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.home);
+                    //mTextMessage.setText(R.string.home);
+                    setViewPager(0);
                     return true;
                 case R.id.navigation_rooms:
-                    mTextMessage.setText(R.string.rooms);
+                    //mTextMessage.setText(R.string.rooms);
+                    setViewPager(0);
                     return true;
                 case R.id.navigation_routines:
-                    mTextMessage.setText(R.string.routines);
+                    //mTextMessage.setText(R.string.routines);
+                    setViewPager(0);
                     return true;
             }
             return false;
@@ -47,13 +54,30 @@ public class MainActivity extends AppCompatActivity {
         myToolbar.inflateMenu(R.menu.toolbar_menu);
         myToolbar.setNavigationIcon(R.drawable.ic_back);
         myToolbar.setTitle(R.string.home);
-        testAPI();
 
+        sectionStatePageAdapter = new SectionStatePageAdapter(getSupportFragmentManager());
+        viewPager = findViewById(R.id.conatiner);
+        //set up the pager
+        setupViewPager(viewPager);
     }
 
 
-    public void testAPI(){
-        SingletonAPI api = SingletonAPI.getInstance(this);
-        DevicesAPI.getAllDevices(this);
+    private  void setupViewPager(ViewPager viewPager){
+        SectionStatePageAdapter adapter = new SectionStatePageAdapter(getSupportFragmentManager());
+        //by default it inflates the first fragment
+        adapter.addFragment(new MostUsedFragment());
+        viewPager.setAdapter(adapter);
     }
+
+
+    /**
+    * Should be used from within the fragments as a way swap from one to other
+    * @param fragmentIndex the index of the fragment you want to show
+    */
+    public void setViewPager(int fragmentIndex){
+        viewPager.setCurrentItem(fragmentIndex);
+    }
+
+
+
 }

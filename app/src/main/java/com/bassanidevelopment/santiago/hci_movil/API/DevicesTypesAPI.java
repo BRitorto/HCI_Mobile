@@ -11,22 +11,31 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
 
+
 public class DevicesTypesAPI {
 
     private static String BASE_URL = SingletonAPI.BASE_URL;
 
+    private Context context;
+
+    public DevicesTypesAPI(Context context){
+        this.context = context;
+
+    }
+
     /**
      * Retrieve all device types
      */
-    public static void getAllDeviceTypes(Context context) {
+    public  void getAllDeviceTypes() {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "devicetypes",
                 new JSONObject(),
                 new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(final JSONObject response) {
                         Log.d("getAllDeviceTypes", response.toString());
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -39,11 +48,12 @@ public class DevicesTypesAPI {
         SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "getAllDeviceTypes");
     }
 
+
     /**
      * Retrieve a specific device type
      * @param deviceTypeId The device type id
      */
-    public static void getDeviceType(Context context, String deviceTypeId) {
+    public void getDeviceType(String deviceTypeId) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "devicetypes" + deviceTypeId,
@@ -63,4 +73,7 @@ public class DevicesTypesAPI {
 
         SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "getDeviceType");
     }
+
+
+
 }

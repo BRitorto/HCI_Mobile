@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bassanidevelopment.santiago.hci_movil.API.APIController;
 import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
-import com.bassanidevelopment.santiago.hci_movil.API.LoadingScreenActivity;
+import com.bassanidevelopment.santiago.hci_movil.API.Loading;
 import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
 import com.bassanidevelopment.santiago.hci_movil.API.SingletonResponse;
 
@@ -25,13 +25,14 @@ public class BottomNavigationActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.home);
+                    //mTextMessage.setText(R.string.home);
                     return true;
                 case R.id.navigation_rooms:
-                    mTextMessage.setText(R.string.rooms);
+
+                    //mTextMessage.setText(R.string.rooms);
                     return true;
                 case R.id.navigation_routines:
-                    mTextMessage.setText(R.string.routines);
+                    //mTextMessage.setText(R.string.routines);
                     return true;
             }
             return false;
@@ -51,7 +52,7 @@ public class BottomNavigationActivity extends AppCompatActivity {
     }
 
     public void testAPI(){
-        Intent intent = new Intent(this, LoadingScreenActivity.class);
+        Intent intent = new Intent(this, Loading.class);
         startActivity(intent);
     }
 

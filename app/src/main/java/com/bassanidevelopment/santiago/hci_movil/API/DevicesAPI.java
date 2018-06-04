@@ -1,5 +1,6 @@
 package com.bassanidevelopment.santiago.hci_movil.API;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android.volley.Request;
@@ -7,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.bassanidevelopment.santiago.hci_movil.Model.Device;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,16 +16,26 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
-public class DevicesAPI {
+public class DevicesAPI  {
 
     private static String BASE_URL = SingletonAPI.BASE_URL;
+    private Context context;
+    private  APIResponseHandler responseHanlder;
+
+    public Object mlock = new Object();
+    public final boolean[] finished = {false};
+
+    public DevicesAPI(Context c, APIResponseHandler apiResponseHandler) {
+        this.context = c;
+        responseHanlder = apiResponseHandler;
+    }
 
     /**
      * Retrieve all devices
      */
-    public static void getAllDevices(Context context) {
-
+    public  void getAllDevices(final Callback callbackAction) {
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "devices",
                 new JSONObject(),
@@ -31,29 +43,26 @@ public class DevicesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("getAllDevices", response.toString());
-                        System.out.println("me here");
                         try {
                             JSONArray devices = response.getJSONArray("devices");
-                            final List<JSONObject> deviceList = new ArrayList<>();
+                            final List<Device> deviceList = new ArrayList<>();
                             for(int i = 0; i < devices.length(); i++){
                                 JSONObject device = devices.getJSONObject(i);
-                                deviceList.add(device);
-                                }
+                                deviceList.add(new Device(device));
+                            }
+                            
+                            if(callbackAction.storeResponse(deviceList)){
+                                Log.d("API", "Reponse devices were retrieved");
+                            }else{
+                                Log.d("API", "there was a problem while executing callback action ");
+                            }
 
-                            APIResponse devs = new APIResponse() {
-                                @Override
-                                public Object parseResponse() {
-                                    return  deviceList;
-                                }
-                            };
-
-                            SingletonResponse resp = SingletonResponse.getInstance();
-                            Log.d("API", "Reponse devices were retrieved");
-                            resp.setResponse(devs);
                         }catch (Exception e){
-                            Log.d("ERROR","something went wrong");
-                            System.out.println("ERROOR!!!!!!!!!!!!");
+                            Log.d("ERROR","something went wrong while retrieving all dev");
                         }
+
+
+
 
                     }
                 },
@@ -64,7 +73,8 @@ public class DevicesAPI {
                     }
                 });
 
-        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "getAllDevices");
+        SingletonAPI.getInstance(this.context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "getAllDevices");
+
     }
 
 
@@ -202,4 +212,6 @@ public class DevicesAPI {
 
         SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "runActionInDevice");
     }
+
+
 }
