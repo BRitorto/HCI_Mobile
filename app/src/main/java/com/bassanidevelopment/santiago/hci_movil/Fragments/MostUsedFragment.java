@@ -43,7 +43,7 @@ public class MostUsedFragment extends Fragment {
         final APIResponseHandler handler = new APIResponseHandler();
         DevicesAPI devicesAPI = new DevicesAPI(getContext(),handler );
 
-        Object resp = devicesAPI.getAllDevices(new Callback() {
+        devicesAPI.getAllDevices(new Callback() {
             @Override
             public boolean storeResponse(Object repsonse) {
                 List<Device> devs = (List<Device>) repsonse;
@@ -53,7 +53,7 @@ public class MostUsedFragment extends Fragment {
         });
 
         System.out.println("and the result was");
-        System.out.println(resp);
+
 //        second way
 //        APIController api = new APIController(SingletonAPI.BASE_URL,
 //                "\"content-type\": \"application/json; charset=utf-8\"",getContext());

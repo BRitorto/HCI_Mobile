@@ -5,5 +5,7 @@
     <string name="rooms">Habitaciones</string>
     <string name="routines">Rutinas</string>
     <string name="settings">Configuración</string>
+    <string name="most_used">Más Usados</string>
+
 
 </resources>

@@ -11,10 +11,11 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.bassanidevelopment.santiago.hci_movil.Fragments.MostUsedFragment;
+import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomsFragment;
+import com.bassanidevelopment.santiago.hci_movil.Fragments.RoutinesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView mTextMessage;
 
     private ViewPager viewPager;
     private SectionStatePageAdapter sectionStatePageAdapter;
@@ -24,18 +25,24 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Toolbar myToolbar = findViewById(R.id.upper_toolbar);
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    //mTextMessage.setText(R.string.home);
                     setViewPager(0);
+                    myToolbar.setTitle(R.string.home);
+                    myToolbar.setNavigationIcon(null);
                     return true;
                 case R.id.navigation_rooms:
-                    //mTextMessage.setText(R.string.rooms);
-                    setViewPager(0);
+                    setViewPager(1);
+                    myToolbar.setTitle(R.string.rooms);
+                    myToolbar.setNavigationIcon(R.drawable.ic_back);
+
                     return true;
                 case R.id.navigation_routines:
-                    //mTextMessage.setText(R.string.routines);
-                    setViewPager(0);
+                    setViewPager(2);
+                    myToolbar.setTitle(R.string.routines);
+                    myToolbar.setNavigationIcon(R.drawable.ic_back);
+
                     return true;
             }
             return false;
@@ -47,16 +54,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Toolbar myToolbar = (Toolbar) findViewById(R.id.upper_toolbar);
         myToolbar.inflateMenu(R.menu.toolbar_menu);
-        myToolbar.setNavigationIcon(R.drawable.ic_back);
         myToolbar.setTitle(R.string.home);
 
         sectionStatePageAdapter = new SectionStatePageAdapter(getSupportFragmentManager());
-        viewPager = findViewById(R.id.conatiner);
+        viewPager = findViewById(R.id.container);
         //set up the pager
         setupViewPager(viewPager);
     }
@@ -66,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
         SectionStatePageAdapter adapter = new SectionStatePageAdapter(getSupportFragmentManager());
         //by default it inflates the first fragment
         adapter.addFragment(new MostUsedFragment());
+        adapter.addFragment(new RoomsFragment());
+        adapter.addFragment(new RoutinesFragment());
         viewPager.setAdapter(adapter);
     }
 

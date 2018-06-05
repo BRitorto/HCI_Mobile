@@ -38,6 +38,10 @@ public class Room {
         this.api = api;
     }
 
+    public Room(String name){
+        this.name = name;
+    }
+
     public JSONObject convertToJSON() throws JSONException
     {
         JSONObject encodedJSON =  new JSONObject();
