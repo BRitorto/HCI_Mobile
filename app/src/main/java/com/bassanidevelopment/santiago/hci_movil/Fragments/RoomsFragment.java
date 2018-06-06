@@ -17,7 +17,10 @@ import com.bassanidevelopment.santiago.hci_movil.R;
 public class RoomsFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_rooms, container, false);
+
+
         return view;
     }
 }

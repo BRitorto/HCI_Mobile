@@ -8,19 +8,33 @@ import java.util.concurrent.Semaphore;
 
 public class APIResponseHandler {
     private Object response;
-
+    private Semaphore sem;
     public APIResponseHandler() {
-
+        // TODO:
+        //      should throw the exception up
+        sem = new Semaphore(1, true);
+        try {
+            sem.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Object getResponse(){
-         return response;
+        try {
+            sem.acquire();
+            System.out.println("arquire sem");
+            return response;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public Boolean setResponse(Object response){
         this.response = response;
         Log.d("Handler","the response was left ");
-        //this.mutex.release();
+        sem.release();
         return  true;
 
     }

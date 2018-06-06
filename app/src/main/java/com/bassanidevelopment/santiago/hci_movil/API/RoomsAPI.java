@@ -22,8 +22,8 @@ public class RoomsAPI {
     /**
      * Retrieve all rooms
      */
-    public static void getAllRooms(final Context context) {
-
+    public static void getAllRooms(final Context context, final Callback callback) {
+        callback.showSpinner();
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "rooms",
                 new JSONObject(),
@@ -31,7 +31,6 @@ public class RoomsAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("getAllRooms", response.toString());
-
                         Gson gson;
                         GsonBuilder gsonBuilder = new GsonBuilder();
                         gson = gsonBuilder.create();
@@ -42,6 +41,10 @@ public class RoomsAPI {
 //                        for (RoomsState.Room eachRoom : roomsState.getRooms()) {
 //                            Log.i("Room", eachRoom.getName());
 //                        }
+                        System.out.println("hide spinner");
+                        callback.hideSpinner();
+                        callback.handleResponse(response);
+
 
 
                     }

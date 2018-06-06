@@ -4,6 +4,8 @@
     <string name="rooms">Rooms</string>
     <string name="routines">Routines</string>
     <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="Settings">Settings</string>
+    <string name="preference_file_key">async_response</string>
     <string name="settings">Settings</string>
     <string name="most_used">Most Used</string>
     <string name="switches">Switch</string>

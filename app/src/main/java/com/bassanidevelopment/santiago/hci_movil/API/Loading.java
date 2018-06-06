@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.bassanidevelopment.santiago.hci_movil.BottomNavigationActivity;
 import com.bassanidevelopment.santiago.hci_movil.R;
 
 public class Loading extends AppCompatActivity {
@@ -28,9 +27,9 @@ public class Loading extends AppCompatActivity {
             @Override
             public void run() {
                 // this will run on the main UI thread
-                Intent mainIntent = new Intent(Loading.this, BottomNavigationActivity.class);
-                Loading.this.startActivity(mainIntent);
-                Loading.this.finish();
+//                Intent mainIntent = new Intent(Loading.this, BottomNavigationActivity.class);
+//                Loading.this.startActivity(mainIntent);
+//                Loading.this.finish();
             }
         };
 

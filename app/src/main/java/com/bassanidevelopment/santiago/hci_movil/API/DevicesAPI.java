@@ -22,20 +22,13 @@ public class DevicesAPI  {
 
     private static String BASE_URL = SingletonAPI.BASE_URL;
     private Context context;
-    private  APIResponseHandler responseHanlder;
 
-    public Object mlock = new Object();
-    public final boolean[] finished = {false};
-
-    public DevicesAPI(Context c, APIResponseHandler apiResponseHandler) {
-        this.context = c;
-        responseHanlder = apiResponseHandler;
-    }
 
     /**
      * Retrieve all devices
      */
-    public  void getAllDevices(final Callback callbackAction) {
+    public static void getAllDevices(final Callback callbackAction, Context context) {
+        callbackAction.showSpinner();
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "devices",
                 new JSONObject(),
@@ -44,19 +37,9 @@ public class DevicesAPI  {
                     public void onResponse(JSONObject response) {
                         Log.d("getAllDevices", response.toString());
                         try {
-                            JSONArray devices = response.getJSONArray("devices");
-                            final List<Device> deviceList = new ArrayList<>();
-                            for(int i = 0; i < devices.length(); i++){
-                                JSONObject device = devices.getJSONObject(i);
-                                deviceList.add(new Device(device));
-                            }
-                            
-                            if(callbackAction.storeResponse(deviceList)){
-                                Log.d("API", "Reponse devices were retrieved");
-                            }else{
-                                Log.d("API", "there was a problem while executing callback action ");
-                            }
 
+                        callbackAction.handleResponse(response);
+                        callbackAction.hideSpinner();
                         }catch (Exception e){
                             Log.d("ERROR","something went wrong while retrieving all dev");
                         }
@@ -73,7 +56,7 @@ public class DevicesAPI  {
                     }
                 });
 
-        SingletonAPI.getInstance(this.context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "getAllDevices");
+        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "getAllDevices");
 
     }
 
@@ -178,40 +161,7 @@ public class DevicesAPI  {
         SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "updateDevice");
     }
 
-    /**
-     * Runs action in a specific device
-     * @param deviceId The device id
-     * @param actionName The action name to perform
-     * @param body The action content, null if it's not required
-     */
-    public static void runActionInDevice(Context context, String deviceId, String actionName, String body) {
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.accumulate("body", body == null ? "{}" : body);
-            jsonObject.accumulate("meta", "{}");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.PUT,
-                BASE_URL + "devices/" + deviceId + "/" + actionName,
-                new JSONObject(),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("runActionInDevice", response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d("runActionInDevice", "Error: " + error.getMessage());
-                    }
-                });
-
-        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "runActionInDevice");
-    }
 
 
 }

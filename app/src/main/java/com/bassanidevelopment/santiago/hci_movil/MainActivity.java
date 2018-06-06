@@ -8,6 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bassanidevelopment.santiago.hci_movil.Fragments.MostUsedFragment;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
     private SectionStatePageAdapter sectionStatePageAdapter;
+    public static  ProgressBar spinner;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.upper_toolbar);
         myToolbar.inflateMenu(R.menu.toolbar_menu);
         myToolbar.setTitle(R.string.home);
-
+        //spinner = findViewById(R.id.progressBar1);
+        //spinner.setVisibility(View.INVISIBLE);
         sectionStatePageAdapter = new SectionStatePageAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.container);
         //set up the pager

@@ -2,6 +2,7 @@ package com.bassanidevelopment.santiago.hci_movil.API;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,10 +28,10 @@ public class APIController extends AsyncTask<String, Void, JSONObject> {
     private String baseUrl;
     private RequestQueue queue;
     private String headers;
-
-    public APIController(String baseUrl, String headers, Context context)
+    private APIResponseHandler handler;
+    public APIController(String baseUrl, String headers, Context context, APIResponseHandler handler)
     {
-
+        this.handler = handler;
         this.baseUrl = baseUrl;
         this.headers = headers;
         this.queue = Volley.newRequestQueue(context);
@@ -40,17 +41,15 @@ public class APIController extends AsyncTask<String, Void, JSONObject> {
 
     public JSONObject getRequest(String query )
     {
-        RequestFuture<JSONObject> requestFuture= RequestFuture.newFuture();
+        RequestFuture<JSONObject> requestFuture = RequestFuture.newFuture();
         JSONObject response = null;
-
+        Log.d("url", this.baseUrl+query);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, this.baseUrl+query,
                                 new JSONObject(), requestFuture,requestFuture);
         queue.add(request);
-        System.out.println(Thread.currentThread().getId());
         try {
             response = requestFuture.get(10, TimeUnit.SECONDS);
-            System.out.println("the response was");
-            System.out.println(response);
+
         }
         catch (InterruptedException e)
         {
@@ -64,6 +63,7 @@ public class APIController extends AsyncTask<String, Void, JSONObject> {
         {
             e.printStackTrace();
         }
+        //handler.setResponse(response);
         return response;
     }
 
@@ -102,6 +102,8 @@ public class APIController extends AsyncTask<String, Void, JSONObject> {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, this.baseUrl+query,
                 model, requestFuture,requestFuture);
+
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.POST, this.baseUrl+query, null, new Response.Listener<JSONObject>() {
 
@@ -118,7 +120,7 @@ public class APIController extends AsyncTask<String, Void, JSONObject> {
                     }
                 });
 
-        queue.add(jsonObjectRequest);
+        queue.add(request);
 
         try {
             response = requestFuture.get(10, TimeUnit.SECONDS);

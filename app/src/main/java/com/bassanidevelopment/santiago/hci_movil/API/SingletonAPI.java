@@ -13,7 +13,7 @@ public class SingletonAPI {
      * To use in the Genymotion emulator use: http://10.0.2.3:8080/api/
      * To use in a real device, get your pc IP: http://<local-pc-ip>:8080/api/
      */
-    public static String BASE_URL = "http://192.168.0.125:8080/api/";
+    public static String BASE_URL = "http://10.0.2.2:8080/api/";
     private static SingletonAPI mSingletonAPIInstance;
     private RequestQueue mRequestQueue;
     private static Context mContext;

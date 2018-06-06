@@ -10,24 +10,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.bassanidevelopment.santiago.hci_movil.API.APIController;
 import com.bassanidevelopment.santiago.hci_movil.API.APIResponseHandler;
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
 import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
+import com.bassanidevelopment.santiago.hci_movil.MainActivity;
 import com.bassanidevelopment.santiago.hci_movil.Model.Device;
 import com.bassanidevelopment.santiago.hci_movil.R;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class MostUsedFragment extends Fragment {
     private static final String TAG = "Most Used Fragment";
 
     private Button mostused1,mostused2,mostused3;
+
+    public int buttonIndex;
 
     @Nullable
     @Override
@@ -40,35 +44,59 @@ public class MostUsedFragment extends Fragment {
         Log.d(TAG,"creating ...");
 
 //        firts attempt
-        final APIResponseHandler handler = new APIResponseHandler();
-        DevicesAPI devicesAPI = new DevicesAPI(getContext(),handler );
-
-        devicesAPI.getAllDevices(new Callback() {
+        Callback callback = new Callback() {
             @Override
-            public boolean storeResponse(Object repsonse) {
-                List<Device> devs = (List<Device>) repsonse;
-                setupDevs(devs);
-                return true;
+            public boolean handleResponse(JSONObject response) {
+                List<Device> devices = new ArrayList<>();
+                try {
+                    for (int i = 0; i < response.getJSONArray("devices").length(); i++ ){
+                        Device dev = new Device(response.getJSONArray("devices").getJSONObject(i));
+                        devices.add(dev);
+                    }
+                    setupDevs(devices);
+                    return true;
+                }catch(Exception e){
+                    e.printStackTrace();
+                    return false;
+                }
+
             }
-        });
 
-        System.out.println("and the result was");
+            @Override
+            public void showSpinner() {
+                //MainActivity.spinner.setVisibility(View.VISIBLE);
+            }
 
-//        second way
-//        APIController api = new APIController(SingletonAPI.BASE_URL,
-//                "\"content-type\": \"application/json; charset=utf-8\"",getContext());
-//        System.out.println(Thread.currentThread().getId());
-//        AsyncTask<String,Void, JSONObject> task =  api.execute("devices");
-//        try {
-//            System.out.println(task.get());
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
+            @Override
+            public void hideSpinner() {
+                //MainActivity.spinner.setVisibility(View.INVISIBLE);
+            }
+        };
+
+        DevicesAPI.getAllDevices(callback, getContext());
+
+
         return view;
     }
 
+
+    public void  setupOneDev(Device dev, int index){
+        switch (index){
+            case 0:
+                mostused1.setText(dev.getName());
+                break;
+
+            case 1:
+                mostused2.setText(dev.getName());
+                break;
+
+            case 2:
+                mostused3.setText(dev.getName());
+                break;
+
+        }
+
+    }
 
     private void setupDevs(List<Device> devices){
         for(Device device : devices){
