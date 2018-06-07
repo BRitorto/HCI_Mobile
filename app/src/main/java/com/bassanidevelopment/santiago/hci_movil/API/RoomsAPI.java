@@ -121,7 +121,7 @@ public class RoomsAPI {
      * Retrieve a specific room
      * @param roomId The room id
      */
-    public static void getRoom(Context context, String roomId) {
+    public static void getRoom(Context context, String roomId, final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "rooms/" + roomId,
@@ -130,6 +130,7 @@ public class RoomsAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("getRoom", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -147,7 +148,7 @@ public class RoomsAPI {
      * @param roomId The room id
      * @param name The room new name
      */
-    public static void updateRoom(Context context, String roomId, String name) {
+    public static void updateRoom(Context context, String roomId, String name, final Callback callback) {
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -164,6 +165,7 @@ public class RoomsAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("updateRoom", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {

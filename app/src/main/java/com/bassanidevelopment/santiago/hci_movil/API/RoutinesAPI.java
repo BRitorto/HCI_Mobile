@@ -20,8 +20,8 @@ public class RoutinesAPI {
     /**
      * Retrieve all routines
      */
-    public static void getAllRoutines(Context context) {
-
+    public static void getAllRoutines(Context context, final Callback callback) {
+        callback.showSpinner();
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "routines",
                 new JSONObject(),
@@ -29,6 +29,8 @@ public class RoutinesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("getAllRoutines", response.toString());
+                        callback.handleResponse(response);
+                        callback.hideSpinner();
                     }
                 },
                 new Response.ErrorListener() {

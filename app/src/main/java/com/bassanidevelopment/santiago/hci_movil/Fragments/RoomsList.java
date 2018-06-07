@@ -1,5 +1,7 @@
 package com.bassanidevelopment.santiago.hci_movil.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import java.util.List;
 public class RoomsList extends ListFragment {
     ArrayList<SimpleList> rooms = new ArrayList();
     SimpleListAdapter adapter;
+
     @Override
 
     public View onCreateView(LayoutInflater inflater,
@@ -34,7 +37,6 @@ public class RoomsList extends ListFragment {
 
 
         retrieveRooms();
-        //setupRooms();
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -49,6 +51,11 @@ public class RoomsList extends ListFragment {
             public void onItemClick(AdapterView<?> av, View v, int pos,
                                     long id) {
                 Toast.makeText(getActivity(), rooms.get(pos).getName(), Toast.LENGTH_SHORT).show();
+                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(Room.ROOM_PREF,rooms.get(pos).getId());
+                MainActivity.setViewPager(4);// set the room view
+
             }
         });
     }
@@ -105,7 +112,7 @@ public class RoomsList extends ListFragment {
 
     public void setupRooms(List<Room> roomsList){
         for(Room room: roomsList){
-            rooms.add(new SimpleList(room.getName()));
+            rooms.add(new SimpleList(room.getName(), room.getId()));
         }
 
         adapter = new SimpleListAdapter(getActivity(), R.layout.fragment_rooms, rooms);
@@ -113,6 +120,6 @@ public class RoomsList extends ListFragment {
 
     }
 
-    
+
 
 }

@@ -77,7 +77,7 @@ public class DevicesAPI  {
         try {
             jsonObject.accumulate("typeId", typeId);
             jsonObject.accumulate("name", name);
-            jsonObject.accumulate("meta", "{}");
+            jsonObject.accumulate("meta", "{count:1}");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -105,7 +105,7 @@ public class DevicesAPI  {
      * Delete an existing device
      * @param deviceId The device id
      */
-    public static void deleteDevice(Context context, String deviceId) {
+    public static void deleteDevice(Context context, String deviceId, final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.DELETE,
                 BASE_URL + "devices/" + deviceId,
@@ -113,6 +113,7 @@ public class DevicesAPI  {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        callback.handleResponse(response);
                         Log.d("deleteDevice", response.toString());
                     }
                 },
@@ -128,23 +129,15 @@ public class DevicesAPI  {
 
     /**
      * Updates an existing device
-     * @param typeId The device type id
-     * @param name The device new name
+     *
      */
-    public static void updateDevice(Context context, String typeId, String name) {
+    public static void updateDevice(Context context, JSONObject dev) throws JSONException {
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.accumulate("typeId", typeId);
-            jsonObject.accumulate("name", name);
-            jsonObject.accumulate("meta", "{}");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.PUT,
-                BASE_URL + "devices/" + typeId,
-                new JSONObject(),
+                BASE_URL + "devices/" + dev.getString("id"),
+                dev,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

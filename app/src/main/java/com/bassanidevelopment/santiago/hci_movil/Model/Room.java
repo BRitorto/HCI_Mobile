@@ -11,6 +11,7 @@ public class Room {
     private JSONObject meta;
     private APIController api;
     private String APIEndpoint;
+    public static final String ROOM_PREF = "current_room";
 
     public Room(JSONObject data) throws JSONException
     {
