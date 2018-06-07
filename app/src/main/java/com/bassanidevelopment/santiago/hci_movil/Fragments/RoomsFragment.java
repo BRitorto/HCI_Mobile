@@ -129,7 +129,7 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
 
     public void setupRooms(List<Room> roomsList){
         for(Room room: roomsList){
-            rooms.add(new SimpleList(room.getName()));
+            rooms.add(new SimpleList(room.getName(), room.getId()));
         }
         gridView.setAdapter(new GridAdapter(getActivity(), rooms));
     }
