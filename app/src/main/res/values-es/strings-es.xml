@@ -6,6 +6,8 @@
     <string name="routines">Rutinas</string>
     <string name="settings">Configuración</string>
     <string name="most_used">Más Usados</string>
+    <string name="add_room">Agregar Habitación</string>
+    <string name="cancel">Cancelar</string>
 
 
 </resources>

@@ -33,18 +33,18 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     setViewPager(0);
                     myToolbar.setTitle(R.string.home);
-                    myToolbar.setNavigationIcon(null);
+                    //myToolbar.setNavigationIcon(null);
                     return true;
                 case R.id.navigation_rooms:
                     setViewPager(1);
                     myToolbar.setTitle(R.string.rooms);
-                    myToolbar.setNavigationIcon(R.drawable.ic_back);
+                    //myToolbar.setNavigationIcon(R.drawable.ic_back);
 
                     return true;
                 case R.id.navigation_routines:
                     setViewPager(2);
                     myToolbar.setTitle(R.string.routines);
-                    myToolbar.setNavigationIcon(R.drawable.ic_back);
+                    //myToolbar.setNavigationIcon(R.drawable.ic_back);
 
                     return true;
             }
