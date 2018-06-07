@@ -7,6 +7,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONObject;
+
 public class SingletonAPI {
     /**
      * To use in the Android Studio emulator use: http://10.0.2.2:8080/api/
@@ -46,5 +48,10 @@ public class SingletonAPI {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
+    }
+
+
+    public static  boolean isError(JSONObject object){
+        return  false;
     }
 }

@@ -49,7 +49,7 @@ public class RoutinesAPI {
      * @param name The routine name
      * @param actions The actions to perform
      */
-    public static void createRoutine(Context context, String name, String actions) {
+    public static void createRoutine(Context context, String name, String actions, final Callback callback) {
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -67,6 +67,7 @@ public class RoutinesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("createRoutine", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -83,7 +84,7 @@ public class RoutinesAPI {
      * Delete an existing routine
      * @param routineId The routine id
      */
-    public static void deleteRoutine(Context context, String routineId) {
+    public static void deleteRoutine(Context context, String routineId, final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.DELETE,
                 BASE_URL + "routines/" + routineId,
@@ -92,6 +93,7 @@ public class RoutinesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("deleteRoutine", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -108,7 +110,7 @@ public class RoutinesAPI {
      * Executes a specific routine
      * @param routineId The routine id
      */
-    public static void executeRoutine(Context context, String routineId) {
+    public static void executeRoutine(Context context, String routineId, final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.PUT,
                 BASE_URL + "routines/" + routineId + "/execute",
@@ -117,6 +119,7 @@ public class RoutinesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("executeRoutine", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {

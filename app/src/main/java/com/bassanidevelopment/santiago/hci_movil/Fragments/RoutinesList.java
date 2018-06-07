@@ -46,6 +46,7 @@ public class RoutinesList extends ListFragment {
             public void onItemClick(AdapterView<?> av, View v, int pos,
                                     long id) {
                 Toast.makeText(getActivity(), routines.get(pos).getName(), Toast.LENGTH_SHORT).show();
+                executeRoutine(routines.get(pos).getId());
             }
         });
     }
@@ -89,11 +90,31 @@ public class RoutinesList extends ListFragment {
     public void setupRotuines(List<Routine> routineList){
 
         for(Routine r : routineList){
-            routines.add(new SimpleList(r.getName(), "1"));
+            routines.add(new SimpleList(r.getName(), r.getId()));
         }
 
 
         adapter = new SimpleListAdapter(getActivity(), R.layout.fragment_routines, routines);
         setListAdapter(adapter);
+    }
+
+
+    public void executeRoutine(String routineId){
+        RoutinesAPI.executeRoutine(getContext(), routineId, new Callback() {
+            @Override
+            public boolean handleResponse(JSONObject response) {
+                return true;
+            }
+
+            @Override
+            public void showSpinner() {
+
+            }
+
+            @Override
+            public void hideSpinner() {
+
+            }
+        });
     }
 }

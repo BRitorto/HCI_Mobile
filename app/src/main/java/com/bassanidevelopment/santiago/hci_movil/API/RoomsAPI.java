@@ -63,7 +63,7 @@ public class RoomsAPI {
      * Creates a new room
      * @param name The new room name
      */
-    public static void addRoom(Context context, String name) {
+    public static void addRoom(Context context, String name, final Callback callback) {
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -80,6 +80,7 @@ public class RoomsAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("addRoom", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -96,7 +97,7 @@ public class RoomsAPI {
      * Delete an existing room
      * @param roomId The room id
      */
-    public static void deleteRoom(Context context, String roomId) {
+    public static void deleteRoom(Context context, String roomId, final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.DELETE,
                 BASE_URL + "rooms/" + roomId,
@@ -105,6 +106,7 @@ public class RoomsAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("deleteRoom", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {

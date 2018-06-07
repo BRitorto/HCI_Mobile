@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI;
+import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
 import com.bassanidevelopment.santiago.hci_movil.Model.GridAdapter;
 import com.bassanidevelopment.santiago.hci_movil.Model.Room;
 import com.bassanidevelopment.santiago.hci_movil.Model.SimpleList;
@@ -70,7 +71,7 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
                 newRoomName = input.getText().toString();
-                addRoom(getActivity(), newRoomName);
+                addNewRoom(newRoomName);
                 //error si ya existe el nombre
                 Snackbar.make(view, "Room " + newRoomName + " added successfully", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -128,8 +129,10 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
     }
 
     public void setupRooms(List<Room> roomsList){
+        rooms = new ArrayList<>();
         for(Room room: roomsList){
             rooms.add(new SimpleList(room.getName(), room.getId()));
+
         }
         gridView.setAdapter(new GridAdapter(getActivity(), rooms));
     }
@@ -138,6 +141,32 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Toast t = Toast.makeText(getContext(), rooms.get(i).getName(), Toast.LENGTH_SHORT);
         t.show();
+    }
+
+
+    public void addNewRoom(String newRoomName){
+
+        addRoom(getActivity(), newRoomName, new Callback() {
+            @Override
+            public boolean handleResponse(JSONObject response) {
+                if(! SingletonAPI.isError(response)){
+                    retrieveRooms();
+                    return  true;
+                }
+
+                return false;
+            }
+
+            @Override
+            public void showSpinner() {
+
+            }
+
+            @Override
+            public void hideSpinner() {
+
+            }
+        });
     }
 }
 

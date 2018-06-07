@@ -5,6 +5,8 @@ import com.bassanidevelopment.santiago.hci_movil.API.APIController;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class Room {
     private String name;
     private String id;
@@ -62,7 +64,12 @@ public class Room {
         this.meta = meta;
     }
 
-
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Room)) return false;
+        Room room = (Room) o;
+        return Objects.equals(id, room.id);
+    }
 
 }

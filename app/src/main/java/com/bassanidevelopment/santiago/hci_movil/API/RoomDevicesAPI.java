@@ -47,7 +47,7 @@ public class RoomDevicesAPI {
      * @param deviceId The device id
      * @param roomId The room id
      */
-    public static void addDeviceToRoom(Context context, String deviceId, String roomId) {
+    public static void addDeviceToRoom(Context context, String deviceId, String roomId, final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.POST,
                 BASE_URL + "devices/" + deviceId + "/rooms/" + roomId,
@@ -56,6 +56,7 @@ public class RoomDevicesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("addDeviceToRoom", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -72,7 +73,7 @@ public class RoomDevicesAPI {
      * Deletes a device from a specific room
      * @param deviceId The device id
      */
-    public static void deleteDevice(Context context, String deviceId) {
+    public static void deleteDevice(Context context, String deviceId, final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.DELETE,
                 BASE_URL + "devices/" + deviceId + "/rooms",
@@ -81,6 +82,7 @@ public class RoomDevicesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("deleteDevice", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {
