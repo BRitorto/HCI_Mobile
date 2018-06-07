@@ -6,7 +6,7 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Device {
+public class Device  implements APIObject{
     private String name;
     private String typeId;
     private String id;

@@ -7,7 +7,7 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
-public class Room {
+public class Room implements APIObject {
     private String name;
     private String id;
     private JSONObject meta;

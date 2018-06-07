@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class GridAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<SimpleList> objects;
+    private ArrayList<APIObject> objects;
 
-    public GridAdapter(Context c, ArrayList<SimpleList> o){
+    public GridAdapter(Context c, ArrayList<APIObject> o){
         this.context = c;
         this.objects = o;
 

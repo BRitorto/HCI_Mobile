@@ -6,27 +6,22 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI;
 import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
+import com.bassanidevelopment.santiago.hci_movil.Model.APIObject;
 import com.bassanidevelopment.santiago.hci_movil.Model.GridAdapter;
 import com.bassanidevelopment.santiago.hci_movil.Model.Room;
-import com.bassanidevelopment.santiago.hci_movil.Model.SimpleList;
-import com.bassanidevelopment.santiago.hci_movil.Model.SimpleListAdapter;
 import com.bassanidevelopment.santiago.hci_movil.R;
 
 import org.json.JSONObject;
@@ -37,7 +32,7 @@ import java.util.List;
 import static com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI.addRoom;
 
 public class RoomsFragment extends Fragment implements AdapterView.OnItemClickListener {
-    private ArrayList<SimpleList> rooms = new ArrayList();
+    private ArrayList<APIObject> rooms = new ArrayList();
     private GridView gridView;
     private String newRoomName = null;
     private View view;
@@ -131,7 +126,7 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
     public void setupRooms(List<Room> roomsList){
         rooms = new ArrayList<>();
         for(Room room: roomsList){
-            rooms.add(new SimpleList(room.getName(), room.getId()));
+            rooms.add(room);
 
         }
         gridView.setAdapter(new GridAdapter(getActivity(), rooms));

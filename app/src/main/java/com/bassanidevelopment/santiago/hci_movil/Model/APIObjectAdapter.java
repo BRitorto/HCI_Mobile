@@ -14,9 +14,9 @@ import com.bassanidevelopment.santiago.hci_movil.R;
 
 import java.util.List;
 
-public class SimpleListAdapter extends ArrayAdapter<SimpleList> {
+public class APIObjectAdapter extends ArrayAdapter<APIObject> {
     Context context;
-    public SimpleListAdapter(@NonNull Context context, int resource, @NonNull List<SimpleList> objects) {
+    public APIObjectAdapter(@NonNull Context context, int resource, @NonNull List<APIObject> objects) {
         super(context, resource, objects);
         this.context = context;
     }
@@ -28,7 +28,7 @@ public class SimpleListAdapter extends ArrayAdapter<SimpleList> {
 
     public View getView(int position, View convertView, ViewGroup parent){
         ViewHolder holder = null;
-        SimpleList rowItem = getItem(position);
+        APIObject rowItem = getItem(position);
 
         LayoutInflater mInflater = (LayoutInflater) context
                 .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);

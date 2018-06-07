@@ -10,9 +10,9 @@ import android.widget.Toast;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.RoutinesAPI;
+import com.bassanidevelopment.santiago.hci_movil.Model.APIObject;
 import com.bassanidevelopment.santiago.hci_movil.Model.Routine;
-import com.bassanidevelopment.santiago.hci_movil.Model.SimpleList;
-import com.bassanidevelopment.santiago.hci_movil.Model.SimpleListAdapter;
+import com.bassanidevelopment.santiago.hci_movil.Model.APIObjectAdapter;
 import com.bassanidevelopment.santiago.hci_movil.R;
 
 import org.json.JSONArray;
@@ -24,8 +24,8 @@ import java.util.List;
 
 
 public class RoutinesList extends ListFragment {
-    ArrayList<SimpleList> routines = new ArrayList();
-    SimpleListAdapter adapter;
+    ArrayList<APIObject> routines = new ArrayList();
+    APIObjectAdapter adapter;
     @Override
 
     public View onCreateView(LayoutInflater inflater,
@@ -88,13 +88,13 @@ public class RoutinesList extends ListFragment {
 
 
     public void setupRotuines(List<Routine> routineList){
-
+        routines = new ArrayList<>();
         for(Routine r : routineList){
-            routines.add(new SimpleList(r.getName(), r.getId()));
+            routines.add(r);
         }
 
 
-        adapter = new SimpleListAdapter(getActivity(), R.layout.fragment_routines, routines);
+        adapter = new APIObjectAdapter(getActivity(), R.layout.fragment_routines, routines);
         setListAdapter(adapter);
     }
 

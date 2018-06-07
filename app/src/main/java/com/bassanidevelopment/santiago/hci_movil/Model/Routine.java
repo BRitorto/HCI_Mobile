@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Routine {
+public class Routine  implements APIObject{
 
     private String name;
     private String id;
@@ -28,8 +28,18 @@ public class Routine {
         return id;
     }
 
+    @Override
+    public JSONObject getMeta() {
+        return null;
+    }
+
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public void setMeta(JSONObject meta) {
+
     }
 
     public JSONArray getActions() {
