@@ -8,6 +8,7 @@
     <string name="most_used">Más Usados</string>
     <string name="add_room">Agregar Habitación</string>
     <string name="cancel">Cancelar</string>
+    <string name="no_dev">NO hay dispositivos</string>
 
 
 </resources>

@@ -13,13 +13,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bassanidevelopment.santiago.hci_movil.Fragments.MostUsedFragment;
+import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomsFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoutinesFragment;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private ViewPager viewPager;
+    private  static ViewPager viewPager;
     private SectionStatePageAdapter sectionStatePageAdapter;
     public static  ProgressBar spinner;
 
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new MostUsedFragment());
         adapter.addFragment(new RoomsFragment());
         adapter.addFragment(new RoutinesFragment());
+        adapter.addFragment(new RoomFragment());
         viewPager.setAdapter(adapter);
     }
 
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
     * Should be used from within the fragments as a way swap from one to other
     * @param fragmentIndex the index of the fragment you want to show
     */
-    public void setViewPager(int fragmentIndex){
+    public static  void  setViewPager(int fragmentIndex){
         viewPager.setCurrentItem(fragmentIndex);
     }
 

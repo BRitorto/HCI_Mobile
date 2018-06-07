@@ -10,6 +10,6 @@
     <string name="switches">Switch</string>
     <string name="add_room">Add Room</string>
     <string name="cancel">Cancel</string>
-
-
+    <string name="no_dev">NO Devices</string>
+    
 </resources>

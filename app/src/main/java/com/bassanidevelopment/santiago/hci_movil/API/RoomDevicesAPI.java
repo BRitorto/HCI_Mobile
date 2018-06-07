@@ -20,7 +20,7 @@ public class RoomDevicesAPI {
      * Retrieve devices in a specific room
      * @param roomId The room id
      */
-    public static void getRoomDevices(Context context, String roomId) {
+    public static void getRoomDevices(Context context, String roomId, final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "rooms/" + roomId + "/devices",
@@ -29,6 +29,7 @@ public class RoomDevicesAPI {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("getRoomDevices", response.toString());
+                        callback.handleResponse(response);
                     }
                 },
                 new Response.ErrorListener() {
