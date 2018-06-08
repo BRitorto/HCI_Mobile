@@ -26,7 +26,7 @@ public class DevicesTypesAPI {
     /**
      * Retrieve all device types
      */
-    public  void getAllDeviceTypes() {
+    public static void getAllDeviceTypes(Context context,final Callback callback) {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "devicetypes",
@@ -35,6 +35,7 @@ public class DevicesTypesAPI {
                     @Override
                     public void onResponse(final JSONObject response) {
                         Log.d("getAllDeviceTypes", response.toString());
+                        callback.handleResponse(response);
 
                     }
                 },

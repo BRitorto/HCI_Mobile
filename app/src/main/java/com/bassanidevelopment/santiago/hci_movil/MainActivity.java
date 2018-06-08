@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bassanidevelopment.santiago.hci_movil.Fragments.DeviceTypeFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.MostUsedFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomsFragment;
@@ -78,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new MostUsedFragment());
         adapter.addFragment(new RoomsFragment());
         adapter.addFragment(new RoutinesFragment());
-        adapter.addFragment(new RoomFragment());
+        //adapter.addFragment(new RoomFragment());
+        adapter.addFragment(new DeviceTypeFragment());
         viewPager.setAdapter(adapter);
     }
 

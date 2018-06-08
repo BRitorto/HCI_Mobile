@@ -15,23 +15,12 @@
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:columnWidth="100dp"
+        android:columnWidth="150dp"
         android:gravity="center"
         android:horizontalSpacing="0dp"
-        android:numColumns="auto_fit"
+        android:numColumns="2"
         android:stretchMode="spacingWidthUniform"
-        android:verticalSpacing="30dp" />
+        android:verticalSpacing="20dp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/gridview"
-        android:layout_alignEnd="@+id/gridview"
-        android:layout_gravity="bottom"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/colorPrimary"
-        app:elevation="0dp"
-        app:fabSize="normal" />
 
 </RelativeLayout>

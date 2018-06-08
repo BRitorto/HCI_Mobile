@@ -20,7 +20,7 @@ import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI;
 import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
 import com.bassanidevelopment.santiago.hci_movil.Model.APIObject;
-import com.bassanidevelopment.santiago.hci_movil.Model.GridAdapter;
+import com.bassanidevelopment.santiago.hci_movil.Model.RoomGridAdapter;
 import com.bassanidevelopment.santiago.hci_movil.Model.Room;
 import com.bassanidevelopment.santiago.hci_movil.R;
 
@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI.addRoom;
+import static com.bassanidevelopment.santiago.hci_movil.MainActivity.setViewPager;
 
 public class RoomsFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ArrayList<APIObject> rooms = new ArrayList();
@@ -129,11 +130,12 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
             rooms.add(room);
 
         }
-        gridView.setAdapter(new GridAdapter(getActivity(), rooms));
+        gridView.setAdapter(new RoomGridAdapter(getActivity(), rooms));
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        setViewPager(3);
         Toast t = Toast.makeText(getContext(), rooms.get(i).getName(), Toast.LENGTH_SHORT);
         t.show();
     }

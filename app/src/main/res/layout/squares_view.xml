@@ -9,22 +9,23 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/room_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/square_icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
             android:scaleType="centerCrop" />
 
     </FrameLayout>
 
     <TextView
-        android:id="@+id/room_name"
+        android:id="@+id/square_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:paddingTop="4dp"
         android:paddingLeft="8dp"
         android:paddingRight="8dp"
-        android:gravity="center_horizontal"/>
+        android:gravity="center_horizontal"
+        android:singleLine="true"/>
 
 
 </LinearLayout>

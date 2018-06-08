@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,11 +12,11 @@ import com.bassanidevelopment.santiago.hci_movil.R;
 
 import java.util.ArrayList;
 
-public class GridAdapter extends BaseAdapter {
+public class RoomGridAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<APIObject> objects;
 
-    public GridAdapter(Context c, ArrayList<APIObject> o){
+    public RoomGridAdapter(Context c, ArrayList<APIObject> o){
         this.context = c;
         this.objects = o;
 
@@ -45,11 +44,11 @@ public class GridAdapter extends BaseAdapter {
             final LayoutInflater layoutInflater = LayoutInflater.from(context);
             grid = layoutInflater.inflate(R.layout.squares_view, viewGroup, false);
 
-            final ImageView imageView = (ImageView) grid.findViewById(R.id.room_icon);
-            final TextView roomName = (TextView) grid.findViewById(R.id.room_name);
+            final ImageView imageView = (ImageView) grid.findViewById(R.id.square_icon);
+            final TextView roomName = (TextView) grid.findViewById(R.id.square_text);
 
             roomName.setText(objects.get(i).getName());
-            imageView.setImageResource(R.drawable.ic_room);
+            imageView.setImageResource(R.drawable.room);
         }
 
         else {
