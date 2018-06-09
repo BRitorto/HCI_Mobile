@@ -1,3 +1,5 @@
+//YA NO SE USA ESTA CLASE SE PUEDE ELIMINAR
+
 package com.bassanidevelopment.santiago.hci_movil;
 
 import android.support.v4.app.Fragment;

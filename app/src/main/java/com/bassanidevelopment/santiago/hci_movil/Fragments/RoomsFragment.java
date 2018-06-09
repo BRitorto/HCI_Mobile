@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI.addRoom;
-import static com.bassanidevelopment.santiago.hci_movil.MainActivity.setViewPager;
 
 public class RoomsFragment extends Fragment implements AdapterView.OnItemClickListener {
     private ArrayList<APIObject> rooms = new ArrayList();
@@ -135,7 +136,12 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        setViewPager(3);
+        FragmentManager f = getFragmentManager();
+        FragmentTransaction ft = f.beginTransaction();
+        ft.replace(R.id.fragment_place, new DeviceTypeFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+
         Toast t = Toast.makeText(getContext(), rooms.get(i).getName(), Toast.LENGTH_SHORT);
         t.show();
     }
