@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,6 @@ import android.support.v4.app.Fragment;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI;
@@ -136,14 +136,14 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toolbar myToolbar = getActivity().findViewById(R.id.upper_toolbar);
+        myToolbar.setTitle(rooms.get(i).getName());
+
         FragmentManager f = getFragmentManager();
         FragmentTransaction ft = f.beginTransaction();
         ft.replace(R.id.fragment_place, new DeviceTypeFragment());
         ft.addToBackStack(null);
         ft.commit();
-
-        Toast t = Toast.makeText(getContext(), rooms.get(i).getName(), Toast.LENGTH_SHORT);
-        t.show();
     }
 
 

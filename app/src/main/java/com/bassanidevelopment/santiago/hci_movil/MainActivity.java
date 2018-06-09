@@ -76,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
         myToolbar.inflateMenu(R.menu.toolbar_menu);
         myToolbar.setTitle(R.string.home);
 
+        //manager.addOnBackStackChangedListener(); necestamos esto para que cambie el titulo del
+        //toolbar cada vez que apretas para atras
+
         ft = manager.beginTransaction();
         ft.replace(R.id.fragment_place, new MostUsedFragment());
         ft.commit();
