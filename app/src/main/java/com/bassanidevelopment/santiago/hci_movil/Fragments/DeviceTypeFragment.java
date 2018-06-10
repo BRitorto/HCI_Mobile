@@ -3,6 +3,9 @@ package com.bassanidevelopment.santiago.hci_movil.Fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import com.bassanidevelopment.santiago.hci_movil.API.DevicesTypesAPI;
 import com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI;
 import com.bassanidevelopment.santiago.hci_movil.Model.APIObject;
 import com.bassanidevelopment.santiago.hci_movil.Model.DeviceType;
+import com.bassanidevelopment.santiago.hci_movil.Model.Room;
 import com.bassanidevelopment.santiago.hci_movil.Model.RoomGridAdapter;
 import com.bassanidevelopment.santiago.hci_movil.Model.TypesGridAdapter;
 import com.bassanidevelopment.santiago.hci_movil.R;
@@ -28,6 +32,7 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
     private ArrayList<DeviceType> types = new ArrayList();
     private GridView gridView;
     private View view;
+
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -84,6 +89,12 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Toast t = Toast.makeText(getContext(), types.get(i).getName(), Toast.LENGTH_SHORT);
         t.show();
+        DeviceType type = types.get(i);
+        type.setAsCurrenttype(getActivity(),getString(R.string.preference_file_key));
+        FragmentManager f = getFragmentManager();
+        FragmentTransaction ft = f.beginTransaction();
+        ft.replace(R.id.fragment_place, new DeviceListFragment());
+        ft.commit();
     }
 
 

@@ -1,6 +1,11 @@
 package com.bassanidevelopment.santiago.hci_movil.Model;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.bassanidevelopment.santiago.hci_movil.API.APIController;
+import com.bassanidevelopment.santiago.hci_movil.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +44,25 @@ public class Room implements APIObject {
         return encodedJSON;
     }
 
+
+
+    public void setAsCurrentRoom(Activity currentActivity,String  file_key){
+        Context context = currentActivity;
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                file_key, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(ROOM_PREF, this.id);
+        editor.commit();
+    }
+
+    public static String getCurrentRoom(Activity currentActivity, String file_key){
+        String currentRoom;
+        Context context = currentActivity;
+        SharedPreferences sharedPref = context.getSharedPreferences(
+                file_key, Context.MODE_PRIVATE);
+        currentRoom = sharedPref.getString(ROOM_PREF, "non");
+        return  currentRoom;
+    }
 
     public String getName() {
         return name;

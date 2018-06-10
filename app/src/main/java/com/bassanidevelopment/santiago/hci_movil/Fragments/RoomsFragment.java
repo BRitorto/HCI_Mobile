@@ -138,13 +138,16 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         Toolbar myToolbar = getActivity().findViewById(R.id.upper_toolbar);
         myToolbar.setTitle(rooms.get(i).getName());
-
+        Room room  = (Room) rooms.get(i);
+        room.setAsCurrentRoom(getActivity(), getString(R.string.preference_file_key));
         FragmentManager f = getFragmentManager();
         FragmentTransaction ft = f.beginTransaction();
         ft.replace(R.id.fragment_place, new DeviceTypeFragment());
         ft.addToBackStack(null);
         ft.commit();
     }
+
+
 
 
     public void addNewRoom(String newRoomName){
