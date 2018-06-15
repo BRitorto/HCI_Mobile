@@ -1,5 +1,7 @@
 package com.bassanidevelopment.santiago.hci_movil.API;
 
+import android.content.Context;
+
 import java.util.concurrent.Semaphore;
 
 public class SingletonResponse {
@@ -8,6 +10,7 @@ public class SingletonResponse {
     private static SingletonResponse responseHandler;
     private APIResponse response;
     private Semaphore mutex;
+    public static  Context context;
     private  SingletonResponse() throws InterruptedException {
         mutex = new Semaphore(1,true);
         mutex.acquire();

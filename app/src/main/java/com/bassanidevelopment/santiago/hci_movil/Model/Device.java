@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class Device  implements APIObject{
     private String name;
     private String typeId;
@@ -34,10 +36,6 @@ public class Device  implements APIObject{
         return typeId;
     }
 
-    public void setTypeId(String typeId) {
-        this.typeId = typeId;
-    }
-
     public String getId() {
         return id;
     }
@@ -52,5 +50,32 @@ public class Device  implements APIObject{
 
     public void setMeta(JSONObject meta) {
         this.meta = meta;
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(name, typeId, id, meta);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Device)) return false;
+        Device device = (Device) o;
+        return Objects.equals(getName(), device.getName()) &&
+                Objects.equals(getTypeId(), device.getTypeId()) &&
+                Objects.equals(getId(), device.getId()) &&
+                getMeta().equals(device.getMeta());
+    }
+
+
+    public JSONObject toJson() throws JSONException {
+        JSONObject object = new JSONObject();
+        object.put("name", getName());
+        object.put("id",getId());
+        object.put("meta",getMeta());
+        object.put("typeId", getTypeId());
+        return object;
     }
 }

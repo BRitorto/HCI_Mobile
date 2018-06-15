@@ -50,6 +50,9 @@ public class SingletonAPI {
         }
     }
 
+    public static Context getmContext() {
+        return mContext;
+    }
 
     public static  boolean isError(JSONObject object){
         return  false;
