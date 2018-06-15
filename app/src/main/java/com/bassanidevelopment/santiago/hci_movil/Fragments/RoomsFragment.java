@@ -38,12 +38,16 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
     private GridView gridView;
     private String newRoomName = null;
     private View view;
+    private Toolbar myToolbar;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         this.view = inflater.inflate(R.layout.grid_view, container, false);
         this.gridView = (GridView) view.findViewById(R.id.gridview);
         retrieveRooms();
+        myToolbar = getActivity().findViewById(R.id.upper_toolbar);
+        myToolbar.setTitle(R.string.rooms);
+        myToolbar.setNavigationIcon(null);
         gridView.setOnItemClickListener(this);
         FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -136,10 +140,10 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toolbar myToolbar = getActivity().findViewById(R.id.upper_toolbar);
         myToolbar.setTitle(rooms.get(i).getName());
         Room room  = (Room) rooms.get(i);
         room.setAsCurrentRoom(getActivity(), getString(R.string.preference_file_key));
+        
         FragmentManager f = getFragmentManager();
         FragmentTransaction ft = f.beginTransaction();
         ft.replace(R.id.fragment_place, new DeviceTypeFragment());

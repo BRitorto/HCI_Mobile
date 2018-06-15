@@ -34,6 +34,12 @@ public class DeviceList  extends android.support.v4.app.ListFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        setListAdapter(null);
+    }
 
     @Override
     public void onStart() {

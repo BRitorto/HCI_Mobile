@@ -34,24 +34,21 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Toolbar myToolbar = findViewById(R.id.upper_toolbar);
+            setSupportActionBar(myToolbar);
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     myToolbar.setTitle(R.string.home);
                     setFragment(new MostUsedFragment());
 
-                    //myToolbar.setNavigationIcon(null);
                     return true;
                 case R.id.navigation_rooms:
-                    myToolbar.setTitle(R.string.rooms);
                     setFragment(new RoomsFragment());
 
-                    //myToolbar.setNavigationIcon(R.drawable.ic_back);
 
                     return true;
                 case R.id.navigation_routines:
                     myToolbar.setTitle(R.string.routines);
                     setFragment(new RoutinesFragment());
-                    //myToolbar.setNavigationIcon(R.drawable.ic_back);
 
                     return true;
             }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,8 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
     private ArrayList<DeviceType> types = new ArrayList();
     private GridView gridView;
     private View view;
+    private Toolbar myToolbar;
+    private FragmentManager manager;
 
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,10 +42,20 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
         this.view = inflater.inflate(R.layout.grid_view_types, container, false);
         this.gridView = (GridView) view.findViewById(R.id.gridview);
         retrieveTypes();
+        manager = getFragmentManager();
         gridView.setOnItemClickListener(this);
+        myToolbar = getActivity().findViewById(R.id.upper_toolbar);
+        myToolbar.setNavigationIcon(R.drawable.ic_back);
+        myToolbar.setNavigationOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                manager.popBackStack();
+            }
+        });
+
 
         return view;
     }
+
 
 
     public void retrieveTypes(){
@@ -91,9 +104,10 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
         t.show();
         DeviceType type = types.get(i);
         type.setAsCurrenttype(getActivity(),getString(R.string.preference_file_key));
-        FragmentManager f = getFragmentManager();
-        FragmentTransaction ft = f.beginTransaction();
+
+        FragmentTransaction ft = manager.beginTransaction();
         ft.replace(R.id.fragment_place, new DeviceListFragment());
+        ft.addToBackStack(null);
         ft.commit();
     }
 
