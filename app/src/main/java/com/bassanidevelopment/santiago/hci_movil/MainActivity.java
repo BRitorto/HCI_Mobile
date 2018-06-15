@@ -1,7 +1,12 @@
 package com.bassanidevelopment.santiago.hci_movil;
 
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,14 +15,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
 
+import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.DeviceTypeFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.MostUsedFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomsFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoutinesFragment;
+
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,13 +89,17 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.fragment_place, new MostUsedFragment());
         ft.commit();
 
+        // ATTENTION: in the future this can't be harcoded, it must be a settings option
+        Context context = getApplicationContext();
 
-        //spinner = findViewById(R.id.progressBar1);
-        //spinner.setVisibility(View.INVISIBLE);
-        //sectionStatePageAdapter = new SectionStatePageAdapter(getSupportFragmentManager());
-        //viewPager = findViewById(R.id.container);
-        //set up the pager
-        //setupViewPager(viewPager);
+        Intent intent = new Intent(MainActivity.this, NotificationHandler.class);
+        PendingIntent alarmIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
+        long interval = 10*1000;
+        AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                SystemClock.elapsedRealtime() + interval,
+                interval,alarmIntent);
+        Log.d("Alarm","Inexact alarm setted");
     }
 
 

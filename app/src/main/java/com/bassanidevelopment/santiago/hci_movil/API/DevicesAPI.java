@@ -8,13 +8,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.bassanidevelopment.santiago.hci_movil.Model.Device;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
@@ -155,6 +158,71 @@ public class DevicesAPI  {
     }
 
 
+    public static void checkDevicestatus(Context context,String id,  final  Callback callback ) throws JSONException {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
+                BASE_URL + "devices/" + id + "/events",
+                new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Event:", response.toString());
+                        callback.handleResponse(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error","Event couldn't be reached");
+                    }
+                });
+
+        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectRequest, "deviceEvents");
+    }
+
+    public static void getEvents(Context context, final Callback callback)throws JSONException{
+        final StringRequest request = new StringRequest(Request.Method.GET,
+                BASE_URL + "devices/events",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response",response);
+                        JSONArray events = extractEvents(response);
+                        JSONObject eventResponse = new JSONObject();
+                        try {
+                            eventResponse.put("events",events);
+                            callback.handleResponse(eventResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error","Event couldn't be reached");
+                    }
+                });
+        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(request, "deviceEvents");
+    }
+
+    public static JSONArray extractEvents(String responseStream){
 
 
+        JSONArray arrayOfEvents = new JSONArray();
+        List<String> responseLines = Arrays.asList(responseStream.split("\n"));
+        int counter = 0;
+        for(String line : responseLines){
+            if(line.matches(".* \"event\": .*")){
+                JsonObject event = new JsonObject();
+
+                event.addProperty("event", line.substring(line.indexOf("\"event\"")));
+                arrayOfEvents.put(event);
+            }
+
+        }
+        System.out.println(responseStream.replaceAll("data:",""));
+        return arrayOfEvents;
+
+    }
 }
