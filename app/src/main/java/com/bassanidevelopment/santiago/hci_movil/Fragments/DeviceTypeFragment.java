@@ -52,7 +52,6 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
             }
         });
 
-
         return view;
     }
 

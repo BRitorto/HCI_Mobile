@@ -2,10 +2,13 @@ package com.bassanidevelopment.santiago.hci_movil.Fragments;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
@@ -22,9 +25,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeviceList  extends android.support.v4.app.ListFragment {
+public class DeviceList extends android.support.v4.app.ListFragment{
     ArrayList<APIObject> roomDevices = new ArrayList();
     APIObjectAdapter adapter;
+    private FragmentManager manager;
+
     @Override
 
     public View onCreateView(LayoutInflater inflater,
@@ -34,26 +39,7 @@ public class DeviceList  extends android.support.v4.app.ListFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
 
-        setListAdapter(null);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> av, View v, int pos,
-                                    long id) {
-                Toast.makeText(getActivity(), roomDevices.get(pos).getName(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 
     public void retrieveRoomDevices(){
@@ -105,5 +91,16 @@ public class DeviceList  extends android.support.v4.app.ListFragment {
         adapter = new APIObjectAdapter(getActivity(), R.layout.fragment_list_devices, devices);
         setListAdapter(adapter);
     }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        System.out.println("hice click");
+        manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction ft = manager.beginTransaction();
+        ft.replace(R.id.fragment_place, new DeviceFragment());
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
 
 }

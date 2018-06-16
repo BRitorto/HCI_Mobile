@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    android:paddingTop="60dp"
+    android:paddingBottom="80dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:padding="20dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/refri_temp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/freezer_temp"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mode"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:padding="20dp">
+
+
+        <SeekBar
+            android:id="@+id/seekBar_refri"
+            android:layout_width="160dp"
+            android:layout_height="15dp"
+            tools:layout_editor_absoluteX="217dp"
+            tools:layout_editor_absoluteY="71dp"
+            android:layout_marginBottom="20dp"/>
+
+        <SeekBar
+            android:id="@+id/seekBar_freezer"
+            android:layout_width="160dp"
+            android:layout_height="15dp"
+            tools:layout_editor_absoluteX="217dp"
+            tools:layout_editor_absoluteY="71dp"
+            android:layout_marginBottom="20dp"/>
+
+        <Spinner
+            android:id="@+id/choose_fridge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

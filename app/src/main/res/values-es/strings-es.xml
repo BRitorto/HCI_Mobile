@@ -9,6 +9,39 @@
     <string name="add_room">Agregar Habitación</string>
     <string name="cancel">Cancelar</string>
     <string name="no_dev">NO hay dispositivos</string>
+    <string name="up">ARRIBA</string>
+    <string name="down">ABAJO</string>
+    <string name="status">Estado</string>
+    <string name="intensity">Intensidad</string>
+    <string name="color">Color</string>
+    <string name="temperature">Temperatura</string>
+    <string name="heat">Calor</string>
+    <string name="grill">Parrilla</string>
+    <string name="convection">Convección</string>
+    <string name="mode">Modo</string>
+    <string name="vertical">Swing vertical</string>
+    <string name="horizontal">Swing horizontal</string>
+    <string name="speed">Velocidad</string>
+    <string name="open">Abrir</string>
+    <string name="close">Cerrar</string>
+    <string name="lock">Trabar</string>
+    <string name="unlock">Destrabar</string>
+    <string name="locked">Traba</string>
+    <string name="refri_temp">Temperatura heladera</string>
+    <string name="freezer_temp">Temperatura freezer</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </resources>

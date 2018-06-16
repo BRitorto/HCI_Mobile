@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:baselineAligned="false"
+    android:paddingTop="60dp"
+    android:paddingBottom="80dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/status"
+            android:layout_marginBottom="30dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/intensity"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/color"
+            android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:padding="20dp">
+
+        <Switch
+            android:id="@+id/switch_lamp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:layout_editor_absoluteX="311dp"
+            tools:layout_editor_absoluteY="16dp"
+            android:layout_marginBottom="20dp"/>
+
+        <SeekBar
+            android:id="@+id/seekBar_lamp"
+            android:layout_width="160dp"
+            android:layout_height="15dp"
+            tools:layout_editor_absoluteX="217dp"
+            tools:layout_editor_absoluteY="71dp"
+            android:layout_marginBottom="20dp"/>
+
+        <com.skydoves.colorpickerpreference.ColorPickerView
+            android:id="@+id/colorPicker_lamp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            app:palette="@drawable/palette"
+            app:selector="@drawable/wheel"
+            tools:layout_editor_absoluteX="224dp"
+            tools:layout_editor_absoluteY="110dp" />
+    </LinearLayout>
+
+</LinearLayout>

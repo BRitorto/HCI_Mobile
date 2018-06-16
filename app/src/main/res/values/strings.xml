@@ -11,5 +11,43 @@
     <string name="add_room">Add Room</string>
     <string name="cancel">Cancel</string>
     <string name="no_dev">NO Devices</string>
-    
+    <string name="up">UP</string>
+    <string name="down">DOWN</string>
+    <string name="status">Status</string>
+    <string name="intensity">Intensity</string>
+    <string name="color">Color</string>
+    <string name="temperature">Temperature</string>
+    <string name="heat">Heat</string>
+    <string name="grill">Grill</string>
+    <string name="convection">Convection</string>
+    <string name="mode">Mode</string>
+    <string name="vertical">Vertical swing</string>
+    <string name="horizontal">Horizontal swing</string>
+    <string name="speed">Speed</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="lock">Lock</string>
+    <string name="unlock">Unlock</string>
+    <string name="locked">Lock</string>
+    <string name="refri_temp">Refrigerator temperature</string>
+    <string name="freezer_temp">Freezer temperature</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </resources>
