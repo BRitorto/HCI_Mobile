@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HCI_MOVIL</string>
+    <string name="app_name">IntelliHome</string>
     <string name="home">Home</string>
     <string name="rooms">Rooms</string>
     <string name="routines">Routines</string>

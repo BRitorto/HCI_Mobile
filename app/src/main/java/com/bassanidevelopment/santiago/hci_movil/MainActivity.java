@@ -34,8 +34,6 @@ import java.util.zip.Inflater;
 public class MainActivity extends AppCompatActivity {
 
 
-    private  static ViewPager viewPager;
-    private SectionStatePageAdapter sectionStatePageAdapter;
     public static  ProgressBar spinner;
     private FragmentManager manager = getSupportFragmentManager();
     private FragmentTransaction fragmentTransaction;
@@ -46,10 +44,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Toolbar myToolbar = findViewById(R.id.upper_toolbar);
-            setSupportActionBar(myToolbar);
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    myToolbar.setTitle(R.string.home);
                     setFragment(new MostUsedFragment());
 
                     return true;
@@ -59,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
 
                     return true;
                 case R.id.navigation_routines:
-                    myToolbar.setTitle(R.string.routines);
                     setFragment(new RoutinesFragment());
 
                     return true;
@@ -85,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
         myToolbar.inflateMenu(R.menu.toolbar_menu);
         myToolbar.setTitle(R.string.home);
         setSupportActionBar(myToolbar);
-        //manager.addOnBackStackChangedListener(); necestamos esto para que cambie el titulo del
-        //toolbar cada vez que apretas para atras
 
         fragmentTransaction = manager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_place, new MostUsedFragment());
@@ -128,23 +121,8 @@ public class MainActivity extends AppCompatActivity {
         return  super.onOptionsItemSelected(item);
     }
 
-    private  void setupViewPager(ViewPager viewPager){
-        //by default it inflates the first fragment
-        sectionStatePageAdapter.addFragment(new MostUsedFragment());
-        sectionStatePageAdapter.addFragment(new RoomsFragment());
-        sectionStatePageAdapter.addFragment(new RoutinesFragment());
-        //sectionStatePageAdapter.addFragment(new RoomFragment());
-        sectionStatePageAdapter.addFragment(new DeviceTypeFragment());
-        viewPager.setAdapter(sectionStatePageAdapter);
-    }
 
 
-    /**
-    * Should be used from within the fragments as a way swap from one to other
-    * @param fragmentIndex the index of the fragment you want to show
-    */
-    public static  void  setViewPager(int fragmentIndex){
-        viewPager.setCurrentItem(fragmentIndex);
-    }
+
 
 }
