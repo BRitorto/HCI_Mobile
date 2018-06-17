@@ -31,7 +31,10 @@
     <string name="freezer_temp">Temperatura freezer</string>
 
 
-
+    <string name="language">Lenguaje</string>
+    <string name="notifications">Notificaciones</string>
+    <string name="help">Ayuda</string>
+    <string name="about_dev">Acerca del desarrollador</string>
 
 
 

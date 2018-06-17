@@ -16,17 +16,16 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.DeviceTypeFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.MostUsedFragment;
-import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomsFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoutinesFragment;
-
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionStatePageAdapter sectionStatePageAdapter;
     public static  ProgressBar spinner;
     private FragmentManager manager = getSupportFragmentManager();
-    private FragmentTransaction ft;
+    private FragmentTransaction fragmentTransaction;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -66,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void setFragment(Fragment f){
-        ft = manager.beginTransaction();
-        ft.replace(R.id.fragment_place, f);
-        ft.commit();
+        fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_place, f);
+        fragmentTransaction.commit();
 
     }
 
@@ -81,13 +80,13 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.upper_toolbar);
         myToolbar.inflateMenu(R.menu.toolbar_menu);
         myToolbar.setTitle(R.string.home);
-
+        setSupportActionBar(myToolbar);
         //manager.addOnBackStackChangedListener(); necestamos esto para que cambie el titulo del
         //toolbar cada vez que apretas para atras
 
-        ft = manager.beginTransaction();
-        ft.replace(R.id.fragment_place, new MostUsedFragment());
-        ft.commit();
+        fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_place, new MostUsedFragment());
+        fragmentTransaction.commit();
 
         // ATTENTION: in the future this can't be harcoded, it must be a settings option
         Context context = getApplicationContext();
@@ -102,6 +101,28 @@ public class MainActivity extends AppCompatActivity {
         Log.d("Alarm","Inexact alarm setted");
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                startActivity(new Intent(MainActivity.this, AppPreferences.class));
+                //Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                break;
+        }
+        return  super.onOptionsItemSelected(item);
+    }
 
     private  void setupViewPager(ViewPager viewPager){
         //by default it inflates the first fragment

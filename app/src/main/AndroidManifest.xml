@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".API.Loading" />
+        <activity android:name=".AppPreferences"/>
 
         <receiver android:name=".NotificationHandler" />
     </application>

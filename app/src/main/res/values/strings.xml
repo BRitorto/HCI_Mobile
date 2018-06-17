@@ -31,7 +31,10 @@
     <string name="locked">Lock</string>
     <string name="refri_temp">Refrigerator temperature</string>
     <string name="freezer_temp">Freezer temperature</string>
-
+    <string name="language">Language</string>
+    <string name="notifications">Notifications</string>
+    <string name="help">Help</string>
+    <string name="about_dev">About Developer</string>
 
 
 
