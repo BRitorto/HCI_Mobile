@@ -4,6 +4,7 @@ import android.app.ListFragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,23 +85,29 @@ public class DeviceList extends android.support.v4.app.ListFragment{
     }
 
     public void setupDevices(List<APIObject> devices){
-        roomDevices = new ArrayList<>();
-        for(APIObject device: devices){
-            roomDevices.add(device);
-        }
         adapter = new APIObjectAdapter(getActivity(), R.layout.fragment_list_devices, devices);
         setListAdapter(adapter);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        roomDevices = new ArrayList<>();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         System.out.println("hice click");
+        Device.setAsCurrentDev(getActivity(),Device.DEV_PREF,roomDevices.get(position).getId());
         manager = getActivity().getSupportFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.replace(R.id.fragment_place, new DeviceFragment());
         ft.addToBackStack(null);
         ft.commit();
     }
+
+
 
 
 }

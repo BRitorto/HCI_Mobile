@@ -41,6 +41,7 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
 
         this.view = inflater.inflate(R.layout.grid_view_types, container, false);
         this.gridView = (GridView) view.findViewById(R.id.gridview);
+
         retrieveTypes();
         manager = getFragmentManager();
         gridView.setOnItemClickListener(this);
@@ -62,6 +63,7 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
             @Override
             public boolean handleResponse(JSONObject response) {
                 try {
+                    types = new ArrayList<>();
                     for (int i = 0; i < response.getJSONArray("devices").length(); i++) {
 
                         JSONObject jsonType = response.getJSONArray("devices").getJSONObject(i);

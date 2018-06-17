@@ -3,14 +3,18 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.bassanidevelopment.santiago.hci_movil.Model.Device;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Semaphore;
 
 public class DevicesAPI  {
@@ -158,6 +163,93 @@ public class DevicesAPI  {
     }
 
 
+    public static void deviceAction(Context context, final Callback callback, String devId, String action, final Map<String,String> params){
+
+        final JSONObject param = new JSONObject();
+        JSONArray array = new JSONArray();
+        for(String key : params.keySet()){
+            try {
+                param.put(key, params.get(key));
+                array.put(params.get(key));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT,
+                BASE_URL + "devices/" + devId + "/" + action,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject resp = new JSONObject();
+                        JsonParser parser = new JsonParser();
+                        JsonObject result =  (JsonObject) parser.parse(response);
+                        try {
+                            resp.put("result", result);
+                            callback.handleResponse(resp);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                 new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return params;
+
+            }
+        };
+
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.PUT,
+                BASE_URL + "devices/" + devId + "/" + action,
+                array,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        JSONObject resp = new JSONObject();
+                        try {
+                            resp.put("result", resp);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        callback.handleResponse(resp);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error Device Action", "Event couldn't be reached");
+                        System.out.println(error);
+                    }
+                });
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT,
+                BASE_URL + "devices/" + devId+ "/"+ action,
+                param,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        callback.handleResponse(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error Device Action","Event couldn't be reached");
+                    }
+                });
+
+        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(stringRequest, "deviceAction");
+
+    }
+
     public static void checkDevicestatus(Context context,String id,  final  Callback callback ) throws JSONException {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
                 BASE_URL + "devices/" + id + "/events",
@@ -225,4 +317,43 @@ public class DevicesAPI  {
         return arrayOfEvents;
 
     }
+
+
+    /**
+     * Runs action in a specific device
+     * @param deviceId The device id
+     * @param actionName The action name to perform
+     * @param body The action content, null if it's not required
+     */
+    public static void runActionInDevice(Context context, String deviceId, String actionName, String body, final Callback callback) {
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.accumulate("body", body == null ? "[]" : body);
+            jsonObject.accumulate("meta", "{}");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.PUT,
+                BASE_URL + "devices/" + deviceId + "/" + actionName,
+                new JSONObject(),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("runActionInDevice", response.toString());
+                        callback.handleResponse(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.d("runActionInDevice", "Error: " + error.getMessage());
+                    }
+                });
+
+        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "runActionInDevice");
+    }
+
+
 }

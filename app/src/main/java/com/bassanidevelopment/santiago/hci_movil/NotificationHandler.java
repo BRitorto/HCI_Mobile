@@ -25,7 +25,6 @@ public class NotificationHandler extends BroadcastReceiver{
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
-        System.out.println("ALEEERT");
         searchForChanges();
 
     }
