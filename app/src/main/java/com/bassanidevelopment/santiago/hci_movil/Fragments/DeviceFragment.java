@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.bassanidevelopment.santiago.hci_movil.DevicesView.BlindView;
 import com.bassanidevelopment.santiago.hci_movil.DevicesView.LampView;
+import com.bassanidevelopment.santiago.hci_movil.DevicesView.OvenView;
 import com.bassanidevelopment.santiago.hci_movil.DevicesView.RefrigeratorView;
 import com.bassanidevelopment.santiago.hci_movil.Model.Device;
 import com.bassanidevelopment.santiago.hci_movil.Model.DeviceType;
@@ -52,6 +53,9 @@ public class DeviceFragment extends Fragment{
                 break;
             case "go46xmbqeomjrsjr":
                 new LampView(view, Device.getCurrentDev(getActivity(), Device.DEV_PREF), getContext());
+                break;
+            case "im77xxyulpegfmv8":
+                new OvenView(view, Device.getCurrentDev(getActivity(), Device.DEV_PREF), getContext());
                 break;
             case "rnizejqr2di0okho":
                 new RefrigeratorView(view, Device.getCurrentDev(getActivity(), Device.DEV_PREF), getContext());
