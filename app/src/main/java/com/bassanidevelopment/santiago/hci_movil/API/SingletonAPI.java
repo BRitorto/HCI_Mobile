@@ -2,10 +2,14 @@ package com.bassanidevelopment.santiago.hci_movil.API;
 
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.bassanidevelopment.santiago.hci_movil.R;
 
 import org.json.JSONObject;
 
@@ -29,6 +33,8 @@ public class SingletonAPI {
         if (mSingletonAPIInstance == null) {
             mSingletonAPIInstance = new SingletonAPI(context);
         }
+        if(! haveNetworkConnection())
+            Toast.makeText(getmContext(), getmContext().getString(R.string.networkError), Toast.LENGTH_LONG).show();
         return mSingletonAPIInstance;
     }
 
@@ -56,5 +62,23 @@ public class SingletonAPI {
 
     public static  boolean isError(JSONObject object){
         return  false;
+    }
+
+
+    private static boolean haveNetworkConnection() {
+        boolean haveConnectedWifi = false;
+        boolean haveConnectedMobile = false;
+
+        ConnectivityManager cm = (ConnectivityManager) getmContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+        for (NetworkInfo ni : netInfo) {
+            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+                if (ni.isConnected())
+                    haveConnectedWifi = true;
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+                if (ni.isConnected())
+                    haveConnectedMobile = true;
+        }
+        return haveConnectedWifi || haveConnectedMobile;
     }
 }

@@ -2,18 +2,26 @@ package com.bassanidevelopment.santiago.hci_movil.API;
 
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.bassanidevelopment.santiago.hci_movil.MainActivity;
+import com.bassanidevelopment.santiago.hci_movil.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 public class RoomsAPI {
 
@@ -63,7 +71,7 @@ public class RoomsAPI {
      * Creates a new room
      * @param name The new room name
      */
-    public static void addRoom(Context context, String name, final Callback callback) {
+    public static void addRoom(final Context context, final String name, final Callback callback) {
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -87,6 +95,8 @@ public class RoomsAPI {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         VolleyLog.d("addRoom", "Error: " + error.getMessage());
+                        handleError(error, context);
+
                     }
                 });
 
@@ -178,5 +188,34 @@ public class RoomsAPI {
                 });
 
         SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonObjectReq, "updateRoom");
+    }
+
+
+    private static void handleError(VolleyError error, Context context) {
+        Error response = null;
+
+        NetworkResponse networkResponse = error.networkResponse;
+        if ((networkResponse != null) && (error.networkResponse.data != null)) {
+            try {
+                String json = new String(
+                        error.networkResponse.data,
+                        HttpHeaderParser.parseCharset(networkResponse.headers));
+
+                JSONObject jsonObject = new JSONObject(json);
+                json = jsonObject.getJSONObject("error").toString();
+
+                Gson gson = new Gson();
+                response = gson.fromJson(json, Error.class);
+            } catch (JSONException e) {
+            } catch (UnsupportedEncodingException e) {
+            }
+        }
+
+
+        String text = context.getString(R.string.errorAddRoom);
+        if (response != null)
+            text += " " + response.getDescription().get(0);
+
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
     }
 }
