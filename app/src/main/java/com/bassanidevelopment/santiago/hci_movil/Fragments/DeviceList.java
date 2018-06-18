@@ -85,7 +85,7 @@ public class DeviceList extends android.support.v4.app.ListFragment{
     }
 
     public void setupDevices(List<APIObject> devices){
-        adapter = new APIObjectAdapter(getActivity(), R.layout.fragment_list_devices, devices);
+        adapter = new APIObjectAdapter(getActivity(), R.layout.fragment_list_devices, devices, 0);
         setListAdapter(adapter);
     }
 

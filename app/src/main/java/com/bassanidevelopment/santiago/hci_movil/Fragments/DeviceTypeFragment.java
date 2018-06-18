@@ -39,7 +39,7 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        this.view = inflater.inflate(R.layout.grid_view_types, container, false);
+        this.view = inflater.inflate(getLayoutResId(), container, false);
         this.gridView = (GridView) view.findViewById(R.id.gridview);
 
         retrieveTypes();
@@ -56,7 +56,9 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
         return view;
     }
 
-
+    protected int getLayoutResId(){
+        return R.layout.activity_masterdetail;
+    }
 
     public void retrieveTypes(){
         Callback callback = new Callback() {
@@ -106,10 +108,18 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
         DeviceType type = types.get(i);
         type.setAsCurrenttype(getActivity(),getString(R.string.preference_file_key));
 
-        FragmentTransaction ft = manager.beginTransaction();
-        ft.replace(R.id.fragment_place, new DeviceListFragment());
-        ft.addToBackStack(null);
-        ft.commit();
+        if (getLayoutResId() == 2131427358) {
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.fragment_place, new DeviceListFragment());
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+
+        else{
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.fragment_container_details, new DeviceListFragment());
+            ft.commit();
+        }
     }
 
 

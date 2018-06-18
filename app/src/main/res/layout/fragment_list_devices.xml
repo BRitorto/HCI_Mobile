@@ -5,9 +5,7 @@
     android:paddingTop="60dp"
     android:paddingBottom="80dp">
 
-
-
-<fragment
+    <fragment
         android:id="@+id/fragmentListDevices"
         android:name="com.bassanidevelopment.santiago.hci_movil.Fragments.DeviceList"
         android:layout_width="wrap_content"

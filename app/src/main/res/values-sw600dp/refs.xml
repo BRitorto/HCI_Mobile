@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="activity_masterdetail" type="layout">@layout/two_pane_view</item>
+    <item name="activity_dev_list" type="layout">@layout/two_pane_view</item>
+
+</resources>

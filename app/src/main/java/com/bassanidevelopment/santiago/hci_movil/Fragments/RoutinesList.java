@@ -45,7 +45,7 @@ public class RoutinesList extends ListFragment {
             @Override
             public void onItemClick(AdapterView<?> av, View v, int pos,
                                     long id) {
-                Toast.makeText(getActivity(), routines.get(pos).getName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), routines.get(pos).getName() + "executed", Toast.LENGTH_SHORT).show();
                 executeRoutine(routines.get(pos).getId());
             }
         });
@@ -63,7 +63,7 @@ public class RoutinesList extends ListFragment {
                         Routine routine = new Routine(array.getJSONObject(i));
                         routines.add(routine);
                     }
-                    setupRotuines(routines);
+                    setupRoutines(routines);
 
                     return  true;
                 } catch (JSONException e) {
@@ -87,14 +87,14 @@ public class RoutinesList extends ListFragment {
     }
 
 
-    public void setupRotuines(List<Routine> routineList){
+    public void setupRoutines(List<Routine> routineList){
         routines = new ArrayList<>();
         for(Routine r : routineList){
             routines.add(r);
         }
 
 
-        adapter = new APIObjectAdapter(getActivity(), R.layout.fragment_routines, routines);
+        adapter = new APIObjectAdapter(getActivity(), R.layout.fragment_routines, routines, 1);
         setListAdapter(adapter);
     }
 

@@ -16,9 +16,11 @@ import java.util.List;
 
 public class APIObjectAdapter extends ArrayAdapter<APIObject> {
     Context context;
-    public APIObjectAdapter(@NonNull Context context, int resource, @NonNull List<APIObject> objects) {
+    int type;
+    public APIObjectAdapter(@NonNull Context context, int resource, @NonNull List<APIObject> objects, int type) {
         super(context, resource, objects);
         this.context = context;
+        this.type = type;
     }
 
     private class ViewHolder{
@@ -42,6 +44,8 @@ public class APIObjectAdapter extends ArrayAdapter<APIObject> {
             holder = (ViewHolder) convertView.getTag();
 
         holder.name.setText(rowItem.getName());
+        if (this.type == 1)
+            holder.img.setImageResource(R.drawable.play);
 
         return convertView;
     }

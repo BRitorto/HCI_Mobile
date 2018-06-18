@@ -48,7 +48,7 @@ public class RoomGridAdapter extends BaseAdapter {
             final TextView roomName = (TextView) grid.findViewById(R.id.square_text);
 
             roomName.setText(objects.get(i).getName());
-            imageView.setImageResource(R.drawable.room);
+            //imageView.setImageResource(R.drawable.room);
         }
 
         else {
