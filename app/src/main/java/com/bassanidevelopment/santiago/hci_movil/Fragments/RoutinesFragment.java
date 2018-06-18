@@ -20,6 +20,7 @@ public class RoutinesFragment extends Fragment {
         myToolbar.setTitle(R.string.routines);
         myToolbar.setNavigationIcon(null);
 
+
         return view;
     }
 

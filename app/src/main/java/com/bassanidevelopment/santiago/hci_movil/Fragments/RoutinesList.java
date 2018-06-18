@@ -33,6 +33,7 @@ public class RoutinesList extends ListFragment {
 
         retrieveRoutines();
         return super.onCreateView(inflater, container, savedInstanceState);
+
     }
 
 
@@ -45,7 +46,7 @@ public class RoutinesList extends ListFragment {
             @Override
             public void onItemClick(AdapterView<?> av, View v, int pos,
                                     long id) {
-                Toast.makeText(getActivity(), routines.get(pos).getName() + "executed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), routines.get(pos).getName() + " executed", Toast.LENGTH_SHORT).show();
                 executeRoutine(routines.get(pos).getId());
             }
         });

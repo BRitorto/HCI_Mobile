@@ -82,9 +82,11 @@ public class MainActivity extends AppCompatActivity {
         myToolbar.setTitle(R.string.home);
         setSupportActionBar(myToolbar);
 
-        fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_place, new MostUsedFragment());
-        fragmentTransaction.commit();
+        if (savedInstanceState==null) {
+            fragmentTransaction = manager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_place, new MostUsedFragment());
+            fragmentTransaction.commit();
+        }
 
         // ATTENTION: in the future this can't be harcoded, it must be a settings option
         Context context = getApplicationContext();
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 SystemClock.elapsedRealtime() + interval,
                 interval,alarmIntent);
         Log.d("Alarm","Inexact alarm setted");
+
     }
 
     @Override

@@ -23,12 +23,14 @@ public class AppPreferences extends AppCompatActivity {
 
         setContentView(R.layout.activity_note_detail);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        SettingsFragment settingsFragment = new SettingsFragment();
-        fragmentTransaction.add(android.R.id.content, settingsFragment, "SETTINGS_FRAGMENT");
-        fragmentTransaction.commit();
+            SettingsFragment settingsFragment = new SettingsFragment();
+            fragmentTransaction.add(android.R.id.content, settingsFragment, "SETTINGS_FRAGMENT");
+            fragmentTransaction.commit();
+        }
     }
 
     public static class SettingsFragment extends PreferenceFragment {
