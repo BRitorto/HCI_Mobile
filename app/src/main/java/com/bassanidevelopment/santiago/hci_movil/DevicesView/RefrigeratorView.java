@@ -175,30 +175,6 @@ public class RefrigeratorView extends DevicesView {
     }
 
 
-    private  void updateStatus(String action,Map<String,String> param){
-        Callback callback = new Callback() {
-            @Override
-            public boolean handleResponse(JSONObject response) {
-                //setState(devId);
-                return  true;
-            }
-
-            @Override
-            public void showSpinner() {
-
-            }
-
-            @Override
-            public void hideSpinner() {
-
-            }
-        };
-
-        DevicesAPI.deviceAction(this.context,callback,devId, action, param);
-
-    }
-
-
     private void setupSeekBar(){
         seekBarRefri.setMax(8);
         seekBarFreezer.setMax(20);

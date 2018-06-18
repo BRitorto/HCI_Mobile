@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.bassanidevelopment.santiago.hci_movil.DevicesView.AirConditionerView;
 import com.bassanidevelopment.santiago.hci_movil.DevicesView.BlindView;
+import com.bassanidevelopment.santiago.hci_movil.DevicesView.DoorView;
 import com.bassanidevelopment.santiago.hci_movil.DevicesView.LampView;
 import com.bassanidevelopment.santiago.hci_movil.DevicesView.OvenView;
 import com.bassanidevelopment.santiago.hci_movil.DevicesView.RefrigeratorView;
@@ -60,6 +61,9 @@ public class DeviceFragment extends Fragment{
                 break;
             case "li6cbv5sdlatti0j":
                 new AirConditionerView(view, Device.getCurrentDev(getActivity(), Device.DEV_PREF), getContext());
+                break;
+            case "lsf78ly0eqrjbz91":
+                new DoorView(view, Device.getCurrentDev(getActivity(), Device.DEV_PREF), getContext());
                 break;
             case "rnizejqr2di0okho":
                 new RefrigeratorView(view, Device.getCurrentDev(getActivity(), Device.DEV_PREF), getContext());

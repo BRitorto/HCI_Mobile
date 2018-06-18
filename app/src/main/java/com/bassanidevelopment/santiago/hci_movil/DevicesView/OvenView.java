@@ -31,12 +31,13 @@ public class OvenView extends  DevicesView {
     private Button buttonGrill;
     private Button buttonConvection;
 
+    private View view;
     public OvenView(View view, String devId,Context context) {
 
 
         this.context = context;
         this.devId = devId;
-
+        this.view = view;
 
         // attach dev
         aSwitch = view.findViewById(R.id.switch_oven);
@@ -197,28 +198,23 @@ public class OvenView extends  DevicesView {
     private  void setLayoutDisplay(){
     aSwitch.setChecked(ovenState.isStatus());
     seekBarTemperature.setProgress(ovenState.getTemperature());
-    }
 
-    private  void updateStatus(String action,Map<String,String> param){
-        Callback callback = new Callback() {
-            @Override
-            public boolean handleResponse(JSONObject response) {
-                //setState(devId);
-                return  true;
-            }
+    String[] arr = view.getResources().getStringArray(R.array.choose_heat);
+    int option = getCurrentOption(arr, ovenState.getHeat());
 
-            @Override
-            public void showSpinner() {
+    buttonHeat.setText(arr[option]);
 
-            }
+    arr = view.getResources().getStringArray(R.array.choose_grill);
+    option =  getCurrentOption(arr, ovenState.getGrill());
 
-            @Override
-            public void hideSpinner() {
+    buttonGrill.setText(arr[option]);
 
-            }
-        };
+    arr = view.getResources().getStringArray(R.array.choose_convection);
+    option = getCurrentOption(arr, ovenState.getConvection());
 
-        DevicesAPI.deviceAction(this.context,callback,devId, action, param);
+    buttonConvection.setText(arr[option]);
 
     }
+
+
 }

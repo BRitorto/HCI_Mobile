@@ -31,6 +31,7 @@ public class AirConditionerView extends DevicesView {
     private Button buttonVertical;
     private Button buttonHorizontal;
     private Button buttonSpeed;
+    private View view;
 
     // state
     private AirConditionerState state;
@@ -38,7 +39,7 @@ public class AirConditionerView extends DevicesView {
     public AirConditionerView(View view, String devId, Context context) {
         this.devId = devId;
         this.context = context;
-
+        this.view = view;
         // attach components
 
         aSwitch = view.findViewById(R.id.switch_ac);
@@ -50,9 +51,10 @@ public class AirConditionerView extends DevicesView {
 
         // set state
         setState(devId);
-
-
         setListeners();
+
+
+
     }
 
     private void setListeners() {
@@ -126,11 +128,17 @@ public class AirConditionerView extends DevicesView {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Choose an item");
         //en el -1 se pone la opcion que esta seleccionada
+
+
         builder.setSingleChoiceItems(chooseMode, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 buttonMode.setText(chooseMode[i]);
                 //aca hacer algo con la opcion elegida, mandarla a la api
+                String action = "setMode";
+                Map<String, String> param = new HashMap<>();
+                param.put("mode",chooseMode[i]);
+                updateStatus(action, param);
                 dialogInterface.dismiss();
             }
         });
@@ -143,11 +151,16 @@ public class AirConditionerView extends DevicesView {
         AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
         builder.setTitle("Choose an item");
         //en el -1 se pone la opcion que esta seleccionada
+
         builder.setSingleChoiceItems(chooseVertical, -1, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 buttonVertical.setText(chooseVertical[i]);
                 //aca hacer algo con la opcion elegida, mandarla a la api
+                String action = "setVerticalSwing";
+                Map<String, String> param = new HashMap<>();
+                param.put("vertical",chooseVertical[i]);
+                updateStatus(action, param);
                 dialogInterface.dismiss();
             }
         });
@@ -165,6 +178,10 @@ public class AirConditionerView extends DevicesView {
             public void onClick(DialogInterface dialogInterface, int i) {
                 buttonHorizontal.setText(chooseHorizontal[i]);
                 //aca hacer algo con la opcion elegida, mandarla a la api
+                String action = "setHorizontalSwing";
+                Map<String, String> param = new HashMap<>();
+                param.put("horizontal",chooseHorizontal[i]);
+                updateStatus(action, param);
                 dialogInterface.dismiss();
             }
         });
@@ -182,11 +199,17 @@ public class AirConditionerView extends DevicesView {
             public void onClick(DialogInterface dialogInterface, int i) {
                 buttonSpeed.setText(chooseSpeed[i]);
                 //aca hacer algo con la opcion elegida, mandarla a la api
+                String action = "setFanSpeed";
+                Map<String, String> param = new HashMap<>();
+                param.put("speed",chooseSpeed[i]);
+                updateStatus(action, param);
                 dialogInterface.dismiss();
             }
         });
         builder.show();
     }
+
+
 
 
     private void setState(String devId){
@@ -197,7 +220,10 @@ public class AirConditionerView extends DevicesView {
                 try {
 
                     state = processStatus(response.getJSONObject("result"));
+                    System.out.println(state.getHorizontalString());
                     setLayoutDisplay();
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -238,7 +264,6 @@ public class AirConditionerView extends DevicesView {
             status = (object.getString("status").equals("on"))? true : false;
 
 
-            Log.d("REFRI", "Yo, i'm here bro");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -248,32 +273,29 @@ public class AirConditionerView extends DevicesView {
     }
 
 
-    private  void updateStatus(String action,Map<String,String> param){
-        Callback callback = new Callback() {
-            @Override
-            public boolean handleResponse(JSONObject response) {
-                //setState(devId);
-                return  true;
-            }
 
-            @Override
-            public void showSpinner() {
-
-            }
-
-            @Override
-            public void hideSpinner() {
-
-            }
-        };
-
-        DevicesAPI.deviceAction(this.context,callback,devId, action, param);
-
-    }
 
     public void setLayoutDisplay(){
         seekBarTemperature.setProgress(state.getTemperature());
         aSwitch.setChecked(state.isStatus());
+        String[] arr = view.getResources().getStringArray(R.array.choose_mode_ac);
+        int option = getCurrentOption(arr, state.getMode());
+
+        buttonMode.setText(arr[option]);
+
+        arr = view.getResources().getStringArray(R.array.choose_horizontal);
+        option = getCurrentOption(arr,state.getHorizontalString());
+        buttonHorizontal.setText(arr[option]);
+
+        arr = view.getResources().getStringArray(R.array.choose_vertical);
+        option =  getCurrentOption(arr, state.getVerticalSwing());
+        buttonVertical.setText(arr[option]);
+
+        arr = view.getResources().getStringArray(R.array.choose_speed);
+        option = getCurrentOption(arr, state.getSpeed());
+
+        buttonSpeed.setText(arr[option]);
+
     }
 
 }

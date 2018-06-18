@@ -87,24 +87,6 @@ public class MostUsedFragment extends Fragment {
     }
 
 
-    public void  setupOneDev(Device dev, int index){
-        switch (index){
-            case 0:
-                mostused1.setText(dev.getName());
-                break;
-
-            case 1:
-                mostused2.setText(dev.getName());
-                break;
-
-            case 2:
-                mostused3.setText(dev.getName());
-                break;
-
-        }
-
-    }
-
     private void setupDevs(List<Device> devices){
         for(Device device : devices){
             System.out.println(device.getName());
