@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="56dp"
-    android:layout_marginBottom="86dp">
+    android:layout_centerHorizontal="true">
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
@@ -19,14 +17,13 @@
         android:textSize="24sp" />
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="55dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
             android:orientation="vertical"
-            android:paddingBottom="24dp"
-            android:paddingTop="14dp">
+            android:paddingBottom="24dp">
 
             <Switch
                 android:id="@+id/blind_notifications"
@@ -82,23 +79,6 @@
                 android:paddingTop="24dp"
                 android:text="@string/refri" />
 
-            <Switch
-                android:id="@+id/timer_notifications"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingEnd="24dp"
-                android:paddingStart="24dp"
-                android:paddingTop="24dp"
-                android:text="@string/timer" />
-
-            <Switch
-                android:id="@+id/alarm_notifications"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingEnd="24dp"
-                android:paddingStart="24dp"
-                android:paddingTop="24dp"
-                android:text="@string/alarm" />
 
         </LinearLayout>
     </ScrollView>
