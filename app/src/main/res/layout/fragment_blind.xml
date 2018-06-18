@@ -36,8 +36,8 @@
             android:id="@+id/toggle_blind"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textOff="@string/up"
-            android:textOn="@string/down" />
+            android:textOff="@string/down"
+            android:textOn="@string/up" />
     </LinearLayout>
 
 </LinearLayout>

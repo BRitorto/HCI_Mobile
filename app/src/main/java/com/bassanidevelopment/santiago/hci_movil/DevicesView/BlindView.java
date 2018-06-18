@@ -71,12 +71,12 @@ public class BlindView extends DevicesView{
 
 
     private BlindState processStatus(JSONObject status){
-        boolean state = false;
+        boolean state = true;
         int height =  0;
         try {
             height = status.getInt("level");
-            if(!status.getString("status").equals("closed"))
-                state =  true;
+            if(!(status.getString("status").equals("closed") || status.getString("status").equals("closing")) )
+                state =  false;
 
 
         } catch (JSONException e) {
