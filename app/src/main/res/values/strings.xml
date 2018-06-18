@@ -43,18 +43,64 @@
     <string name="oven">Oven</string>
     <string name="lamp">Lamp</string>
     <string name="alarm">Alarm</string>
-    
-    <string-array name="setHeat">
+
+
+    <string-array name="choose_heat">
         <item>conventional</item>
         <item>bottom</item>
         <item>top</item>
     </string-array>
+
+    <string-array name="choose_grill">
+        <item>large</item>
+        <item>eco</item>
+        <item>off</item>
+    </string-array>
+
+    <string-array name="choose_convection">
+        <item>normal</item>
+        <item>eco</item>
+        <item>off</item>
+    </string-array>
+
+
+    <string-array name="choose_mode_ac">
+        <item>cool</item>
+        <item>heat</item>
+        <item>fan</item>
+    </string-array>
+
+    <string-array name="choose_vertical">
+        <item>auto</item>
+        <item>22</item>
+        <item>45</item>
+        <item>67</item>
+        <item>90</item>
+    </string-array>
+
+    <string-array name="choose_horizontal">
+        <item>auto</item>
+        <item>-90</item>
+        <item>-45</item>
+        <item>0</item>
+        <item>45</item>
+        <item>90</item>
+    </string-array>
+
+    <string-array name="choose_speed">
+        <item>auto</item>
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+    </string-array>
+
 
     <string-array name="choose_fridge">
         <item>default</item>
         <item>vacation</item>
         <item>party</item>
     </string-array>
-    
+
 
     </resources>

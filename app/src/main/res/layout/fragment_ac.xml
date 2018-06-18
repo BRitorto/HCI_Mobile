@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
             android:text="@string/mode"
             android:textColor="@color/colorPrimary" />
 
@@ -41,21 +41,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/vertical"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
             android:textColor="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/horizontal"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
             android:textColor="@color/colorPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/speed"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="50dp"
             android:textColor="@color/colorPrimary" />
 
 
@@ -83,7 +83,7 @@
             android:layout_marginBottom="20dp" />
 
         <Button
-            android:id="@+id/choose_mode"
+            android:id="@+id/choose_mode_ac"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp" />

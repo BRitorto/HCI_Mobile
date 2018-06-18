@@ -53,7 +53,6 @@ public class RefrigeratorView extends DevicesView {
 
             @Override
             public void onClick(View view) {
-                System.out.println("hiceee clickckkk");
                 chooseFridge(view);
             }
         });
