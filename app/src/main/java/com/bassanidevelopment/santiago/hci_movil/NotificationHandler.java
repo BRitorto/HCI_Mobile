@@ -181,6 +181,7 @@ public class NotificationHandler extends BroadcastReceiver{
     }
 
     private void populateNotification(){
+        notificationMap = new HashMap<>();
         notificationMap.put("statusChanged", new ProcessNotification() {
             @Override
             public String process(Object object) {
