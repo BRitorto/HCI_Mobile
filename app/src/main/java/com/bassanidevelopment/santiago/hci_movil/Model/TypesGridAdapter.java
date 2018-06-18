@@ -30,14 +30,14 @@ public class TypesGridAdapter extends BaseAdapter {
         icons.put("ofglvd9gqX8yfl3l", R.drawable.timer);
         icons.put("rnizejqr2di0okho", R.drawable.refri);
 
-        names.put("eu0v2xgprrhhg41g", "Blinds");
-        names.put("go46xmbqeomjrsjr", "Lamps");
-        names.put("im77xxyulpegfmv8", "Ovens");
-        names.put("li6cbv5sdlatti0j", "AC");
-        names.put("lsf78ly0eqrjbz91", "Doors");
-        names.put("mxztsyjzsrq7iaqc", "Alarm");
-        names.put("ofglvd9gqX8yfl3l", "Timers");
-        names.put("rnizejqr2di0okho", "Refrigerator");
+        names.put("eu0v2xgprrhhg41g", R.string.blind);
+        names.put("go46xmbqeomjrsjr", R.string.lamp);
+        names.put("im77xxyulpegfmv8", R.string.oven);
+        names.put("li6cbv5sdlatti0j", R.string.ac);
+        names.put("lsf78ly0eqrjbz91", R.string.door);
+        names.put("mxztsyjzsrq7iaqc", R.string.alarm);
+        names.put("ofglvd9gqX8yfl3l", R.string.timer);
+        names.put("rnizejqr2di0okho", R.string.refri);
 
     }
     @Override
@@ -77,6 +77,6 @@ public class TypesGridAdapter extends BaseAdapter {
 
 
     private HashMap<String, Integer> icons = new HashMap<>();
-    private HashMap<String, String> names = new HashMap<>();
+    private HashMap<String, Integer> names = new HashMap<>();
 
 }
