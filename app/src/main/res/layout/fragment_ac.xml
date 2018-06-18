@@ -82,25 +82,26 @@
             android:layout_height="15dp"
             android:layout_marginBottom="20dp" />
 
-        <Spinner
+        <Button
             android:id="@+id/choose_mode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp" />
 
-        <Spinner
+        <Button
             android:id="@+id/choose_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+/>
 
-        <Spinner
+        <Button
             android:id="@+id/choose_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp" />
 
-        <Spinner
+        <Button
             android:id="@+id/choose_speed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,11 +1,14 @@
 package com.bassanidevelopment.santiago.hci_movil.DevicesView;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+
+import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
@@ -26,25 +29,34 @@ public class RefrigeratorView extends DevicesView {
     // layout components
 
     private SeekBar seekBarRefri;
-    private  SeekBar seekBarFreezer;
-    private Spinner spinnerMode;
-
+    private SeekBar seekBarFreezer;
+    private Button buttonMode;
     private RefrigeratorState refri;
+    private View view;
 
 
     public  RefrigeratorView(View view, String devId,Context context){
+        this.view = view;
         seekBarRefri = view.findViewById(R.id.seekBar_refri);
         seekBarFreezer = view.findViewById(R.id.seekBar_freezer);
-        spinnerMode = view.findViewById(R.id.choose_fridge);
+        buttonMode = view.findViewById(R.id.choose_fridge);
+
+
+        //setupSeekBar();
 
         this.context = context;
-        setupSeekBar();
+        this.devId = devId;
 
+        //setState(devId);
 
-        this. devId = devId;
+        buttonMode.setOnClickListener(new View.OnClickListener(){
 
-
-        setState(devId);
+            @Override
+            public void onClick(View view) {
+                System.out.println("hiceee clickckkk");
+                chooseFridge(view);
+            }
+        });
 
         seekBarFreezer.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -85,6 +97,23 @@ public class RefrigeratorView extends DevicesView {
                 updateStatus("setTemperature",param);
             }
         });
+    }
+
+    public void chooseFridge(View v){
+        final String[] chooseFridge = v.getResources().getStringArray(R.array.choose_fridge);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+        builder.setTitle("Choose an item");
+        //en el -1 se pone la opcion que esta seleccionada
+        builder.setSingleChoiceItems(chooseFridge, -1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                buttonMode.setText(chooseFridge[i]);
+                //aca hacer algo con la opcion elegida, mandarla a la api
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 
     private void setState(String devId){
@@ -141,7 +170,9 @@ public class RefrigeratorView extends DevicesView {
     public void setLayoutDisplay(){
         seekBarRefri.setProgress(refri.getTemperature());
         seekBarFreezer.setProgress(refri.getFreezerTemperature());
-        spinnerMode.setSelection(refri.getMode());
+
+
+        //buttonMode.setSelection(refri.getMode());
     }
 
 

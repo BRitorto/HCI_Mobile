@@ -42,6 +42,19 @@
     <string name="oven">Oven</string>
     <string name="lamp">Lamp</string>
     <string name="alarm">Alarm</string>
+
+    <string-array name="setHeat">
+        <item>conventional</item>
+        <item>bottom</item>
+        <item>top</item>
+    </string-array>
     <string name="refri">Refrigerator</string>
 
-</resources>
+    <string-array name="choose_fridge">
+        <item>default</item>
+        <item>vacation</item>
+        <item>party</item>
+    </string-array>
+
+
+    </resources>
