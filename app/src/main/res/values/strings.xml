@@ -35,6 +35,18 @@
     <string name="notifications">Notifications</string>
     <string name="help">Help</string>
     <string name="about_dev">About Developer</string>
+    
+    <string-array name="setHeat">
+        <item>conventional</item>
+        <item>bottom</item>
+        <item>top</item>
+    </string-array>
+
+    <string-array name="choose_fridge">
+        <item>default</item>
+        <item>vacation</item>
+        <item>party</item>
+    </string-array>
 
 
 
@@ -53,4 +65,5 @@
 
 
 
-</resources>
+
+    </resources>

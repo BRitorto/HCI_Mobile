@@ -64,7 +64,7 @@
             tools:layout_editor_absoluteY="71dp"
             android:layout_marginBottom="20dp"/>
 
-        <Spinner
+        <Button
             android:id="@+id/choose_fridge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

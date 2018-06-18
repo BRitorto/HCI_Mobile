@@ -78,19 +78,20 @@
             tools:layout_editor_absoluteX="217dp"
             tools:layout_editor_absoluteY="71dp" />
 
-        <Spinner
+        <Button
             android:id="@+id/choose_heat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:entries="@array/setHeat" />
 
-        <Spinner
+        <Button
             android:id="@+id/choose_grill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp" />
 
-        <Spinner
+        <Button
             android:id="@+id/choose_convection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

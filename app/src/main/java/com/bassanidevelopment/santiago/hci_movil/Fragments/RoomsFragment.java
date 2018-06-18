@@ -88,6 +88,7 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
 
         builder.show();
     }
+
     public void retrieveRooms(){
         Callback callback = new Callback() {
             @Override
