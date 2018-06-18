@@ -40,7 +40,7 @@
     <string name="lamp">Lámpara</string>
     <string name="alarm">Alarma</string>
     <string name="refri">Refregerator</string>
-
+    <string name="notificationText">"el dispositivo cambio de estado"</string>
 
 
 

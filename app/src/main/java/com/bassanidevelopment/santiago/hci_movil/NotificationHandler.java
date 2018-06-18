@@ -23,7 +23,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,10 +39,12 @@ public class NotificationHandler extends BroadcastReceiver{
     private Context context;
     public static  final String CHANNEL_ID = "notificationBar";
     private static final int MY_NOTIFICATION_ID = 1;
+    public static List<String> allowedTypes = new ArrayList();
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
         populateNotification();
+
 
         searchForChanges();
 
@@ -54,6 +58,7 @@ public class NotificationHandler extends BroadcastReceiver{
                 try {
                     JSONArray deviceArray = response.getJSONArray("devices");
                     for(int i  = 0; i < deviceArray.length(); i++){
+                        if( allowedTypes.contains(deviceArray.getJSONObject(i).getString("typeId")))
                         checkEvents(deviceArray.getJSONObject(i).getString("id"),
                                 deviceArray.getJSONObject(i).getString("name") );
 
@@ -152,7 +157,7 @@ public class NotificationHandler extends BroadcastReceiver{
                 try {
                     if(response.getInt("events") > 0) {
                         devName = name;
-                        notificationText = "the divice was changed";
+                        notificationText = context.getString(R.string.notificationText);
                         notifyUser();
                     }
                 } catch (JSONException e) {

@@ -119,7 +119,6 @@ public class LampView extends DevicesView {
             chosenColor.setBackgroundColor(Color.parseColor(color));
 
         }catch (Exception e){
-            System.out.println(Color.parseColor(color));
             System.out.println("this color is not found");
         }
     }

@@ -43,6 +43,7 @@
     <string name="lamp">Lamp</string>
     <string name="alarm">Alarm</string>
     <string name="refri">Refrigerator</string>
+    <string name="notificationText">"the divice was changed"</string>
 
     <string-array name="choose_heat">
         <item>conventional</item>
