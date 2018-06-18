@@ -74,8 +74,7 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
                 newRoomName = input.getText().toString();
                 addNewRoom(newRoomName);
                 //error si ya existe el nombre
-                Snackbar.make(view, "Room " + newRoomName + " added successfully", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
 
@@ -155,15 +154,18 @@ public class RoomsFragment extends Fragment implements AdapterView.OnItemClickLi
 
 
 
-    public void addNewRoom(String newRoomName){
+    public void addNewRoom(final String newRoomName){
 
         addRoom(getActivity(), newRoomName, new Callback() {
             @Override
             public boolean handleResponse(JSONObject response) {
                 if(! SingletonAPI.isError(response)){
                     retrieveRooms();
+                    Snackbar.make(view, "Room " + newRoomName + " added successfully", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                     return  true;
                 }
+
 
                 return false;
             }

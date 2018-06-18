@@ -43,8 +43,10 @@
     <string name="lamp">Lamp</string>
     <string name="alarm">Alarm</string>
     <string name="refri">Refrigerator</string>
-    <string name="notificationText">"the divice was changed"</string>
-
+    <string name="notificationText">the divice was changed</string>
+    <string name="errorAddRoom">There was a problem adding </string>
+    <string name="successAddRoom"> added successfully</string>
+    <string name="networkError"> you have no network connection, please connect</string>
     <string-array name="choose_heat">
         <item>conventional</item>
         <item>bottom</item>

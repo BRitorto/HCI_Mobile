@@ -35,13 +35,19 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
     private View view;
     private Toolbar myToolbar;
     private FragmentManager manager;
-
+    private List<String> allowedTypes;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         this.view = inflater.inflate(getLayoutResId(), container, false);
         this.gridView = (GridView) view.findViewById(R.id.gridview);
-
+        allowedTypes = new ArrayList<>();
+        allowedTypes.add("eu0v2xgprrhhg41g");
+        allowedTypes.add("go46xmbqeomjrsjr");
+        allowedTypes.add("im77xxyulpegfmv8");
+        allowedTypes.add("li6cbv5sdlatti0j");
+        allowedTypes.add("lsf78ly0eqrjbz91");
+        allowedTypes.add("rnizejqr2di0okho");
         retrieveTypes();
         manager = getFragmentManager();
         gridView.setOnItemClickListener(this);
@@ -71,7 +77,8 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
                         JSONObject jsonType = response.getJSONArray("devices").getJSONObject(i);
 
                         DeviceType type = new DeviceType(jsonType);
-                        types.add(type);
+                        if(allowedTypes.contains(type.getId()))
+                            types.add(type);
                     }
 
                     setupTypes();
