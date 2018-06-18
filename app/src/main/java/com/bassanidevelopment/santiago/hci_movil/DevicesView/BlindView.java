@@ -3,6 +3,7 @@ package com.bassanidevelopment.santiago.hci_movil.DevicesView;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ToggleButton;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
@@ -14,16 +15,12 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class BlindView {
+public class BlindView extends DevicesView{
 
-    private Button toggle;
-    private String devId;
+    private ToggleButton toggle;
     private BlindState state;
-    private Context context;
-    private  boolean first;
     public BlindView(View view, String devId, Context context)
     {
-        first = true;
         this.context = context;
         toggle = view.findViewById(R.id.toggle_blind);
         setState(devId);
@@ -32,11 +29,10 @@ public class BlindView {
             @Override
             public void onClick(View view) {
                 state.setState(!state.isState());
-                updateState();
-                if(toggle.getText().equals("up"))
-                    toggle.setText("down");
-                else
-                    toggle.setText("up");
+                toggle.setChecked(state.isState());
+                String action = (state.isState())? "down" : "up";
+                updateStatus(action, new HashMap<String, String>());
+
             }
         });
     }
@@ -49,10 +45,7 @@ public class BlindView {
                 try {
                     JSONObject status =  response.getJSONObject("result");
                     state = processStatus(status);
-                    if(first){
-                        setToggle();
-                        first = false;
-                    }
+                    setupLayout();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -75,12 +68,6 @@ public class BlindView {
 
     }
 
-    private void setToggle(){
-        if(state.isState()){
-            toggle.setText("Down");
-        }else
-            toggle.setText("Up");
-    }
 
 
     private BlindState processStatus(JSONObject status){
@@ -100,30 +87,8 @@ public class BlindView {
 
     }
 
-    private  void updateState(){
-        Callback callback = new Callback() {
-            @Override
-            public boolean handleResponse(JSONObject response) {
-                setState(devId);
-                return  true;
-            }
-
-            @Override
-            public void showSpinner() {
-
-            }
-
-            @Override
-            public void hideSpinner() {
-
-            }
-        };
-        String action;
-        if(state.isState())
-            action = "up";
-        else
-            action = "down";
-        DevicesAPI.deviceAction(this.context, callback, devId, action, new HashMap<String, String>());
-
+    private void setupLayout(){
+        toggle.setChecked(state.isState());
     }
+
 }
