@@ -113,8 +113,9 @@ public class LampView extends DevicesView {
         aSwitch.setChecked(state.isStatus());
         seekBar.setProgress(state.getBrightness());
         String color = state.getColor();
-        color = "#" + color;
-        try {
+        if( !color.matches("#.*"))
+            color = "#" + color;
+        try{
             chosenColor.setBackgroundColor(Color.parseColor(color));
 
         }catch (Exception e){
