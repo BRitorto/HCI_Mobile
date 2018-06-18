@@ -29,13 +29,17 @@
     <string name="locked">Traba</string>
     <string name="refri_temp">Temperatura heladera</string>
     <string name="freezer_temp">Temperatura freezer</string>
-
-
     <string name="language">Lenguaje</string>
     <string name="notifications">Notificaciones</string>
     <string name="help">Ayuda</string>
     <string name="about_dev">Acerca del desarrollador</string>
-
+    <string name="ac">Aire Acondicionado</string>
+    <string name="door">Puerta</string>
+    <string name="timer">Temporizador</string>
+    <string name="blind">Cortina</string>
+    <string name="oven">Horno</string>
+    <string name="lamp">Lámpara</string>
+    <string name="alarm">Alarma</string>
 
 
 
