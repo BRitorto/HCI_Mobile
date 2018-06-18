@@ -4,11 +4,6 @@
     android:layout_height="match_parent">
     <PreferenceCategory android:title="@string/settings">
         <Preference
-            android:title="@string/language">
-            <intent android:action="preferences"/>
-        </Preference>
-
-        <Preference
             android:title="@string/notifications">
             <intent android:action="notification_preference"
                     android:targetClass="com.bassanidevelopment.santiago.hci_movil.MainActivity"/>

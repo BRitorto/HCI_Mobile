@@ -80,7 +80,7 @@
                 android:paddingEnd="24dp"
                 android:paddingStart="24dp"
                 android:paddingTop="24dp"
-                android:text="@string/refri_temp" />
+                android:text="@string/refri" />
 
             <Switch
                 android:id="@+id/timer_notifications"
