@@ -42,7 +42,6 @@
     <string name="oven">Oven</string>
     <string name="lamp">Lamp</string>
     <string name="alarm">Alarm</string>
-
     <string-array name="setHeat">
         <item>conventional</item>
         <item>bottom</item>
