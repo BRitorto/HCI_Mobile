@@ -80,7 +80,7 @@ public class OvenView extends  DevicesView {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 ovenState.setTemperature(seekBar.getProgress());
                 Map<String, String> param = new HashMap<>();
-                String action =  (ovenState.isStatus())?"turnOn": "turnOff";
+                String action =  "setTemperature";
                 param.put("temp",String.valueOf(ovenState.getTemperature()));
                 updateStatus(action, param);
             }

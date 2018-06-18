@@ -36,4 +36,9 @@ public class LampState {
         this.color = color;
         this.brightness = brightness;
     }
+
+    @Override
+    public String toString() {
+        return "color:" + getColor().toString() + " brightness" + getBrightness() + "status: "+ isStatus();
+    }
 }

@@ -4,11 +4,18 @@ import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
 import com.bassanidevelopment.santiago.hci_movil.Model.DeviceState.AirConditionerState;
 import com.bassanidevelopment.santiago.hci_movil.Model.DeviceState.LampState;
 import com.bassanidevelopment.santiago.hci_movil.R;
+import com.skydoves.colorpickerpreference.ColorEnvelope;
+import com.skydoves.colorpickerpreference.ColorListener;
+import com.skydoves.colorpickerpreference.ColorPickerView;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +30,9 @@ public class LampView extends DevicesView {
 
     private Switch aSwitch;
     private SeekBar seekBar;
+    private  View view;
+    private ColorPickerView colorPickerView;
+    private TextView chosenColor;
     // em queda uno que ni puta idea
 
     private LampState state;
@@ -30,12 +40,12 @@ public class LampView extends DevicesView {
     public LampView(View view ,String devId, Context context){
         this.context = context;
         this.devId = devId;
-
+        this.view = view;
         // attach components
         aSwitch = view.findViewById(R.id.switch_lamp);
         seekBar = view.findViewById(R.id.seekBar_lamp);
-
-
+        colorPickerView = view.findViewById(R.id.colorPicker_lamp);
+        chosenColor = view.findViewById(R.id.chosen_color);
         setState(devId);
 
         setupHandlers();
@@ -78,7 +88,6 @@ public class LampView extends DevicesView {
     private LampState processStatus(JSONObject object){
         int brightness = 0;
         String color = "FFFFFF";
-
         boolean status = false;
 
         try {
@@ -103,6 +112,9 @@ public class LampView extends DevicesView {
     private  void setLayoutDisplay(){
         aSwitch.setChecked(state.isStatus());
         seekBar.setProgress(state.getBrightness());
+        String color = state.getColor();
+        color = "#"+color;
+        chosenColor.setBackgroundColor(Color.parseColor(color));
     }
 
     private  void setupHandlers(){
@@ -135,6 +147,21 @@ public class LampView extends DevicesView {
                 String action = (state.isStatus())? "turnOff" : "turnOn";
 
                 updateStatus(action, new HashMap<String, String>());
+            }
+        });
+
+
+        colorPickerView.setColorListener(new ColorListener() {
+            @Override
+            public void onColorSelected(ColorEnvelope colorEnvelope) {
+                chosenColor.setBackgroundColor(colorEnvelope.getColor());
+                String action = "setColor";
+                if(state != null) {
+                    state.setColor(colorEnvelope.getColorHtml());
+                    Map<String, String> param = new HashMap<>();
+                    param.put("color", state.getColor());
+                    updateStatus(action, param);
+                }
             }
         });
     }
