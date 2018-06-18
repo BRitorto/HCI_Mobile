@@ -38,7 +38,7 @@ public class NotificationHandler extends BroadcastReceiver{
 
     private Context context;
     public static  final String CHANNEL_ID = "notificationBar";
-    private static final int MY_NOTIFICATION_ID = 1;
+    private static  int MY_NOTIFICATION_ID = 1;
     public static List<String> allowedTypes = new ArrayList();
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -147,6 +147,7 @@ public class NotificationHandler extends BroadcastReceiver{
         // Ignore deprecated warning. In newer devices SDK 16+ should use build() method.
         // getNotification() method internally calls build() method.
         notificationManager.notify(MY_NOTIFICATION_ID, notification);
+        MY_NOTIFICATION_ID++;
     }
 
     public  void checkEvents(String id, final String name){

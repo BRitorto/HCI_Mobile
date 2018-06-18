@@ -97,8 +97,19 @@ public class NotificationActivity extends AppCompatActivity {
                 }
             }
         });
+
+
+        setupSwitched();
     }
 
+    private void setupSwitched(){
+        blind.setChecked(NotificationHandler.allowedTypes.contains("eu0v2xgprrhhg41g"));
+        lamp.setChecked(NotificationHandler.allowedTypes.contains("go46xmbqeomjrsjr"));
+        oven.setChecked(NotificationHandler.allowedTypes.contains("im77xxyulpegfmv8"));
+        ac.setChecked(NotificationHandler.allowedTypes.contains("li6cbv5sdlatti0j"));
+        door.setChecked(NotificationHandler.allowedTypes.contains("lsf78ly0eqrjbz91"));
+        refrigerator.setChecked(NotificationHandler.allowedTypes.contains("rnizejqr2di0okho"));
+    }
 
 
 }

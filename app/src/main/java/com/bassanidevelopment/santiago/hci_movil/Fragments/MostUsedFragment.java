@@ -64,7 +64,19 @@ public class MostUsedFragment extends Fragment {
 
         Log.d(TAG,"creating ...");
 
-//        firts attempt
+        setupLayout();
+
+
+        return view;
+    }
+
+
+    private void setupLayout(){
+        //        firts attempt
+        for(Switch aSwitch: mostUsedArr){
+            aSwitch.setVisibility(View.INVISIBLE);
+        }
+
         Callback callback = new Callback() {
             @Override
             public boolean handleResponse(JSONObject response) {
@@ -95,11 +107,7 @@ public class MostUsedFragment extends Fragment {
         };
 
         DevicesAPI.getAllDevices(callback, getContext());
-
-
-        return view;
     }
-
 
     private void setupDevs(List<Device> devices){
 
@@ -110,12 +118,14 @@ public class MostUsedFragment extends Fragment {
                 try {
                     JSONObject result =  response.getJSONObject("result");
                     String status = result.getString("status");
-                    if(status.equals("off") || status.equals("opened")){
-                        mostUsedArr.get(setupIndex).setChecked(false);
-                    }else{
-                        mostUsedArr.get(setupIndex).setChecked(true);
+                    if(setupIndex < mostUsedArr.size()) {
+                        if (status.equals("off") || status.equals("opened")) {
+                            mostUsedArr.get(setupIndex).setChecked(false);
+                        } else {
+                            mostUsedArr.get(setupIndex).setChecked(true);
+                        }
+                        setupIndex++;
                     }
-                    setupIndex++;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -133,14 +143,29 @@ public class MostUsedFragment extends Fragment {
             }
         };
 
-        if(devices.size() > 2) {
-            mostused1.setText(devices.get(0).getName());
-            mostused2.setText(devices.get(1).getName());
-            mostused3.setText(devices.get(2).getName());
+//        if(devices.size() > 2) {
+//            mostused1.setText(devices.get(0).getName());
+//            mostused2.setText(devices.get(1).getName());
+//            mostused3.setText(devices.get(2).getName());
+//
+//            for(int i= 0 ; i < 2; i++){
+//                DevicesAPI.deviceAction(getContext(), callback, devices.get(i).getId(), "getState",new HashMap<String, String>() );
+//            }
+//        }
 
-            for(int i= 0 ; i < 2; i++){
-                DevicesAPI.deviceAction(getContext(), callback, devices.get(i).getId(), "getState",new HashMap<String, String>() );
-            }
+
+
+
+        int counter = 0;
+        for(Device dev : devices){
+            if (counter < mostUsedArr.size()-1) {
+                mostUsedArr.get(counter).setText(dev.getName());
+                mostUsedArr.get(counter).setVisibility(View.VISIBLE);
+                DevicesAPI.deviceAction(getContext(), callback, devices.get(counter).getId(), "getState",new HashMap<String, String>() );
+                counter++;
+            }else
+                break;
+
         }
 
 
@@ -148,6 +173,10 @@ public class MostUsedFragment extends Fragment {
 
     }
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        setupLayout();
+        setupIndex = 0;
+    }
 }
