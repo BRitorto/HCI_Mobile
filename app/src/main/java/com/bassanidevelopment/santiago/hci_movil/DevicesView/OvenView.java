@@ -17,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class OvenView extends  DevicesView {
 
@@ -42,6 +43,20 @@ public class OvenView extends  DevicesView {
         spinnerGrill = view.findViewById(R.id.choose_grill);
 
         setState(devId);
+
+
+        // listners
+
+        aSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ovenState.setStatus(!ovenState.isStatus());
+                Map<String, String> param = new HashMap<>();
+                String action =  (ovenState.isStatus())?"turnOn": "turnOff";
+                param.put("switch","");
+                updateStatus(action, param);
+            }
+        });
 
 
     }
@@ -100,5 +115,29 @@ public class OvenView extends  DevicesView {
 
     private  void setLayoutDisplay(){
     aSwitch.setChecked(ovenState.isStatus());
+    seekBarTemperature.setProgress(ovenState.getTemperature());
+    }
+
+    private  void updateStatus(String action,Map<String,String> param){
+        Callback callback = new Callback() {
+            @Override
+            public boolean handleResponse(JSONObject response) {
+                //setState(devId);
+                return  true;
+            }
+
+            @Override
+            public void showSpinner() {
+
+            }
+
+            @Override
+            public void hideSpinner() {
+
+            }
+        };
+
+        DevicesAPI.deviceAction(this.context,callback,devId, action, param);
+
     }
 }

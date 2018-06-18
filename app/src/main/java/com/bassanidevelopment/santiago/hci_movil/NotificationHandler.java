@@ -1,18 +1,32 @@
 package com.bassanidevelopment.santiago.hci_movil;
-
+import android.app.PendingIntent;
+import android.support.v4.app.TaskStackBuilder;
+import android.app.Notification;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Toast;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
 import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
+import com.bassanidevelopment.santiago.hci_movil.Model.ProcessNotification;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class NotificationHandler extends BroadcastReceiver{
     /**
@@ -21,10 +35,13 @@ public class NotificationHandler extends BroadcastReceiver{
      * */
 
     private Context context;
-
+    public static  final String CHANNEL_ID = "notificationBar";
+    private static final int MY_NOTIFICATION_ID = 1;
     @Override
     public void onReceive(Context context, Intent intent) {
         this.context = context;
+        populateNotification();
+
         searchForChanges();
 
     }
@@ -71,8 +88,7 @@ public class NotificationHandler extends BroadcastReceiver{
                     JSONArray events = response.getJSONArray("events");
 
                     if(events.length() > 0)
-                        Toast.makeText(context, response.get("events").toString(),
-                            Toast.LENGTH_LONG).show();
+                        notifyUser(response.get("events"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -94,6 +110,37 @@ public class NotificationHandler extends BroadcastReceiver{
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private void notifyUser(Object events) {
+        // Create the intent to start Activity when notification in action bar is
+        // clicked.
+        Intent notificationIntent = new Intent(this.context, MainActivity.class);
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this.context);
+        stackBuilder.addNextIntent(notificationIntent);
+        // Create the pending intent granting the Operating System to launch activity
+        // when notification in action bar is clicked.
+        final PendingIntent contentIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+
+        Notification notification = new Notification.Builder(this.context)
+                .setContentTitle("This is a test Title")
+                .setContentText(getNotificationtext(events.toString()))
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                .setSmallIcon(android.R.drawable.stat_sys_download_done)
+                .setContentIntent(contentIntent).build();
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        // Ignore deprecated warning. In newer devices SDK 16+ should use build() method.
+        // getNotification() method internally calls build() method.
+        notificationManager.notify(MY_NOTIFICATION_ID, notification);
     }
 
     public  void checkEvents(String id){
@@ -120,4 +167,28 @@ public class NotificationHandler extends BroadcastReceiver{
             e.printStackTrace();
         }
     }
+
+
+    private  String getNotificationtext(String event){
+        String text = "";
+        Pattern  pattern = Pattern.compile("\"args\": \"\\{.*\\}");
+        Matcher matcher = pattern.matcher(event);
+        if(matcher.find())
+            text =  matcher.group(0);
+
+        return text;
+
+    }
+
+    private void populateNotification(){
+        notificationMap.put("statusChanged", new ProcessNotification() {
+            @Override
+            public String process(Object object) {
+
+                return null;
+            }
+        });
+    }
+
+    private Map<String, ProcessNotification> notificationMap;
 }
