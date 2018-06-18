@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <item name="activity_masterdetail" type="layout">@layout/grid_view_types</item>
-    <item name="activity_dev_list" type="layout">@layout/fragment_list_devices</item>
-
 </resources>

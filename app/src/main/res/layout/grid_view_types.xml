@@ -22,5 +22,4 @@
         android:stretchMode="spacingWidthUniform"
         android:verticalSpacing="20dp" />
 
-
 </RelativeLayout>

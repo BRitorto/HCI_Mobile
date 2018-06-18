@@ -31,18 +31,11 @@
     </FrameLayout>
 
     <FrameLayout
-        android:id="@+id/fragment_container_details"
+        android:id="@+id/fragment_place2"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <fragment
-            android:id="@+id/fragmentListDevices"
-            android:name="com.bassanidevelopment.santiago.hci_movil.Fragments.DeviceList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
 
     </FrameLayout>
 

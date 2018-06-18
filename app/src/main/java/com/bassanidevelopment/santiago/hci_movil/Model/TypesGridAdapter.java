@@ -59,13 +59,11 @@ public class TypesGridAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View grid;
         if (view == null) {
-
             final LayoutInflater layoutInflater = LayoutInflater.from(context);
             grid = layoutInflater.inflate(R.layout.squares_view_types, viewGroup, false);
 
             final ImageView imageView = (ImageView) grid.findViewById(R.id.square_icon);
             final TextView typeName = (TextView) grid.findViewById(R.id.square_text);
-
             typeName.setText(names.get(objects.get(i).getId()));
             imageView.setImageResource(icons.get(objects.get(i).getId()));
         }

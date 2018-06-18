@@ -60,6 +60,8 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
         return R.layout.activity_masterdetail;
     }
 
+
+
     public void retrieveTypes(){
         Callback callback = new Callback() {
             @Override
@@ -108,18 +110,20 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
         DeviceType type = types.get(i);
         type.setAsCurrenttype(getActivity(),getString(R.string.preference_file_key));
 
-        if (getLayoutResId() == 2131427358) {
+
+        if (getActivity().findViewById(R.id.fragment_place2) != null) {
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.replace(R.id.fragment_place2, new DeviceListFragment());
+            ft.commit();
+        }
+
+        else{
             FragmentTransaction ft = manager.beginTransaction();
             ft.replace(R.id.fragment_place, new DeviceListFragment());
             ft.addToBackStack(null);
             ft.commit();
         }
 
-        else{
-            FragmentTransaction ft = manager.beginTransaction();
-            ft.replace(R.id.fragment_container_details, new DeviceListFragment());
-            ft.commit();
-        }
     }
 
 
