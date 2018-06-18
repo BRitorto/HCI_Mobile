@@ -280,6 +280,7 @@ public class DevicesAPI  {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Error","Event couldn't be reached");
+                        System.out.println(error);
                     }
                 });
 
@@ -293,7 +294,7 @@ public class DevicesAPI  {
                     @Override
                     public void onResponse(String response) {
                         Log.d("Response",response);
-                        JSONArray events = extractEvents(response);
+                        JSONArray events = new JSONArray();
                         JSONObject eventResponse = new JSONObject();
                         try {
                             eventResponse.put("events",events);
@@ -313,23 +314,55 @@ public class DevicesAPI  {
         SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(request, "deviceEvents");
     }
 
-    public static JSONArray extractEvents(String responseStream){
+    public static void getDeviceEvents(Context context,String devId, final Callback callback)throws JSONException{
+        final StringRequest request = new StringRequest(Request.Method.GET,
+                BASE_URL + "devices/"+devId+"/events",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response",response);
+                        int numberofEvent = extractEvents(response);
+                        JSONObject eventResponse = new JSONObject();
+                        try {
+                            eventResponse.put("events",numberofEvent);
+                            callback.handleResponse(eventResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error","Event couldn't be reached");
+                    }
+                });
+        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(request, "deviceEvents");
+    }
 
+    public static int extractEvents(String responseStream){
+
+        int result = 0;
         JSONArray arrayOfEvents = new JSONArray();
         List<String> responseLines = Arrays.asList(responseStream.split("\n"));
-        int counter = 0;
         for(String line : responseLines){
             if(line.matches(".* \"event\": .*")){
                 JsonObject event = new JsonObject();
 
                 event.addProperty("event", line.substring(line.indexOf("\"event\"")));
                 arrayOfEvents.put(event);
+                result++;
             }
 
         }
-        System.out.println(responseStream.replaceAll("data:",""));
-        return arrayOfEvents;
+        responseStream = responseStream.replaceAll("data: ","");
+        System.out.println(responseStream);
+        System.out.println("now the one");
+        responseStream = responseStream.replaceAll("id: .* $ ","");
+        responseStream = responseStream.replaceAll("\\n ","");
+        System.out.println(responseStream);
+        return result;
 
     }
 

@@ -68,12 +68,17 @@
 
         <com.skydoves.colorpickerpreference.ColorPickerView
             android:id="@+id/colorPicker_lamp"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             app:palette="@drawable/palette"
-            app:selector="@drawable/wheel"
-            tools:layout_editor_absoluteX="224dp"
-            tools:layout_editor_absoluteY="110dp" />
+            app:selector="@drawable/wheel" />
+
+        <TextView
+            android:id="@+id/chosen_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"/>
+
     </LinearLayout>
 
 </LinearLayout>

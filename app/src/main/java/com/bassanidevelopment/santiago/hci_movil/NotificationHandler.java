@@ -54,7 +54,8 @@ public class NotificationHandler extends BroadcastReceiver{
                 try {
                     JSONArray deviceArray = response.getJSONArray("devices");
                     for(int i  = 0; i < deviceArray.length(); i++){
-                        checkEvents(deviceArray.getJSONObject(i).getString("id"));
+                        checkEvents(deviceArray.getJSONObject(i).getString("id"),
+                                deviceArray.getJSONObject(i).getString("name") );
 
                     }
                     return  true;
@@ -77,7 +78,7 @@ public class NotificationHandler extends BroadcastReceiver{
             }
         };
 
-        //DevicesAPI.getAllDevices(checkEachDev,this.context);
+        DevicesAPI.getAllDevices(checkEachDev,this.context);
         Callback callback_2 = new Callback() {
             @Override
             public boolean handleResponse(JSONObject response) {
@@ -88,7 +89,7 @@ public class NotificationHandler extends BroadcastReceiver{
                     JSONArray events = response.getJSONArray("events");
 
                     if(events.length() > 0)
-                        notifyUser(response.get("events"));
+                        notifyUser();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -105,14 +106,14 @@ public class NotificationHandler extends BroadcastReceiver{
 
             }
         };
-        try {
-            DevicesAPI.getEvents(context,callback_2 );
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            DevicesAPI.getEvents(context,callback_2 );
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
-    private void notifyUser(Object events) {
+    private void notifyUser() {
         // Create the intent to start Activity when notification in action bar is
         // clicked.
         Intent notificationIntent = new Intent(this.context, MainActivity.class);
@@ -130,8 +131,8 @@ public class NotificationHandler extends BroadcastReceiver{
 
 
         Notification notification = new Notification.Builder(this.context)
-                .setContentTitle("This is a test Title")
-                .setContentText(getNotificationtext(events.toString()))
+                .setContentTitle(devName)
+                .setContentText(notificationText)
                 .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setSmallIcon(android.R.drawable.stat_sys_download_done)
@@ -143,11 +144,20 @@ public class NotificationHandler extends BroadcastReceiver{
         notificationManager.notify(MY_NOTIFICATION_ID, notification);
     }
 
-    public  void checkEvents(String id){
+    public  void checkEvents(String id, final String name){
         Callback callNotification = new Callback() {
             @Override
             public boolean handleResponse(JSONObject response) {
                 Log.d("Response to events", response.toString());
+                try {
+                    if(response.getInt("events") > 0) {
+                        devName = name;
+                        notificationText = "the divice was changed";
+                        notifyUser();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
 
@@ -162,7 +172,7 @@ public class NotificationHandler extends BroadcastReceiver{
             }
         };
         try {
-            DevicesAPI.checkDevicestatus(context, id, callNotification );
+            DevicesAPI.getDeviceEvents(context, id, callNotification );
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -192,4 +202,6 @@ public class NotificationHandler extends BroadcastReceiver{
     }
 
     private Map<String, ProcessNotification> notificationMap;
+    private  String notificationText = "";
+    private String devName = "";
 }

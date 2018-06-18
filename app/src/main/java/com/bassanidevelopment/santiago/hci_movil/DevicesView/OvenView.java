@@ -49,15 +49,39 @@ public class OvenView extends  DevicesView {
         setState(devId);
 
 
+        setupListners();
+
+    }
+
+    private  void setupListners(){
         // listners
 
         aSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ovenState.setStatus(!ovenState.isStatus());
-                Map<String, String> param = new HashMap<>();
                 String action =  (ovenState.isStatus())?"turnOn": "turnOff";
-                param.put("switch","");
+                updateStatus(action, new HashMap<String, String>());
+            }
+        });
+
+        seekBarTemperature.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                ovenState.setTemperature(seekBar.getProgress());
+                Map<String, String> param = new HashMap<>();
+                String action =  "setTemperature";
+                param.put("temp",String.valueOf(ovenState.getTemperature()));
                 updateStatus(action, param);
             }
         });
@@ -85,7 +109,6 @@ public class OvenView extends  DevicesView {
                 chooseGrill(view);
             }
         });
-
     }
 
     private void chooseHeat(View v){
@@ -99,6 +122,10 @@ public class OvenView extends  DevicesView {
             public void onClick(DialogInterface dialogInterface, int i) {
                 buttonHeat.setText(chooseHeat[i]);
                 //aca hacer algo con la opcion elegida, mandarla a la api
+                String action = "setHeat";
+                Map<String ,String > param = new HashMap<>();
+                param.put("heat", chooseHeat[i]);
+                updateStatus(action, param);
                 dialogInterface.dismiss();
             }
         });
@@ -116,6 +143,11 @@ public class OvenView extends  DevicesView {
             public void onClick(DialogInterface dialogInterface, int i) {
                 buttonConvection.setText(chooseConvection[i]);
                 //aca hacer algo con la opcion elegida, mandarla a la api
+                String action = "setConvection";
+                Map<String ,String > param = new HashMap<>();
+                param.put("heat", chooseConvection[i]);
+                updateStatus(action, param);
+
                 dialogInterface.dismiss();
             }
         });
@@ -133,6 +165,11 @@ public class OvenView extends  DevicesView {
             public void onClick(DialogInterface dialogInterface, int i) {
                 buttonGrill.setText(chooseGrill[i]);
                 //aca hacer algo con la opcion elegida, mandarla a la api
+                String action = "setGrill";
+                Map<String ,String > param = new HashMap<>();
+                param.put("heat", chooseGrill[i]);
+                updateStatus(action, param);
+
                 dialogInterface.dismiss();
             }
         });

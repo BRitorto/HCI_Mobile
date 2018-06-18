@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.bassanidevelopment.santiago.hci_movil.API.APIController;
 import com.bassanidevelopment.santiago.hci_movil.API.APIResponseHandler;
@@ -22,19 +23,25 @@ import com.bassanidevelopment.santiago.hci_movil.MainActivity;
 import com.bassanidevelopment.santiago.hci_movil.Model.Device;
 import com.bassanidevelopment.santiago.hci_movil.R;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MostUsedFragment extends Fragment {
     private static final String TAG = "Most Used Fragment";
 
-    private Button mostused1,mostused2,mostused3;
+    private Switch mostused1,mostused2,mostused3;
 
     public int buttonIndex;
 
     private Toolbar myToolbar;
+
+    private List<Switch>  mostUsedArr;
+
+    private int setupIndex = 0;
 
     @Nullable
     @Override
@@ -48,6 +55,13 @@ public class MostUsedFragment extends Fragment {
         mostused1= view.findViewById(R.id.mostUsed1);
         mostused2= view.findViewById(R.id.mostUsed2);
         mostused3= view.findViewById(R.id.mostUsed3);
+
+        mostUsedArr = new ArrayList<>();
+        mostUsedArr.add(mostused1);
+        mostUsedArr.add(mostused2);
+        mostUsedArr.add(mostused3);
+
+
         Log.d(TAG,"creating ...");
 
 //        firts attempt
@@ -88,19 +102,50 @@ public class MostUsedFragment extends Fragment {
 
 
     private void setupDevs(List<Device> devices){
-        for(Device device : devices){
-            System.out.println(device.getName());
-        }
-        mostused1.setText(devices.get(0).getName());
-        mostused2.setText(devices.get(1).getName());
-        mostused3.setText(devices.get(2).getName());
 
-        mostused1.setOnClickListener(new View.OnClickListener() {
+        Callback callback = new Callback() {
             @Override
-            public void onClick(View view) {
+            public boolean handleResponse(JSONObject response) {
+
+                try {
+                    JSONObject result =  response.getJSONObject("result");
+                    String status = result.getString("status");
+                    if(status.equals("off") || status.equals("opened")){
+                        mostUsedArr.get(setupIndex).setChecked(false);
+                    }else{
+                        mostUsedArr.get(setupIndex).setChecked(true);
+                    }
+                    setupIndex++;
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                return false;
+            }
+
+            @Override
+            public void showSpinner() {
 
             }
-        });
+
+            @Override
+            public void hideSpinner() {
+
+            }
+        };
+
+        if(devices.size() > 2) {
+            mostused1.setText(devices.get(0).getName());
+            mostused2.setText(devices.get(1).getName());
+            mostused3.setText(devices.get(2).getName());
+
+            for(int i= 0 ; i < 2; i++){
+                DevicesAPI.deviceAction(getContext(), callback, devices.get(i).getId(), "getState",new HashMap<String, String>() );
+            }
+        }
+
+
+
+
     }
 
 

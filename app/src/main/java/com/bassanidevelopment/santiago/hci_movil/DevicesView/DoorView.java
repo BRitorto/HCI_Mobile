@@ -36,6 +36,7 @@ public class DoorView extends DevicesView{
         toggleLock = view.findViewById(R.id.toggle_lock_door);
 
         setState(devId);
+        setupListeners();
     }
 
     private void setState(String devId){
@@ -74,7 +75,7 @@ public class DoorView extends DevicesView{
 
         try {
             lock = object.getString("lock");
-            status = (object.getString("status").equals("on"))? true : false;
+            status = (object.getString("status").equals("opened"))? true : false;
 
 
         } catch (JSONException e) {
@@ -106,10 +107,11 @@ public class DoorView extends DevicesView{
         toggleLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleLock.setChecked(!toggleLock.isChecked());
-                state.setLock((toggleLock.isChecked())?"locked":"unlocked");
-                String action = (toggleLock.isChecked())? "lock": "unlock";
+
+                state.setLock((!toggleLock.isChecked())?"locked":"unlocked");
+                String action = (!toggleLock.isChecked())? "unlock": "lock";
                 updateStatus(action, new HashMap<String, String>());
+                toggleLock.setChecked(toggleLock.isChecked());
             }
         });
     }

@@ -42,12 +42,11 @@ public class RefrigeratorView extends DevicesView {
         buttonMode = view.findViewById(R.id.choose_fridge);
 
 
-        //setupSeekBar();
-
+        this.view = view;
         this.context = context;
         this.devId = devId;
 
-        //setState(devId);
+        setState(devId);
 
         buttonMode.setOnClickListener(new View.OnClickListener(){
 
@@ -109,6 +108,10 @@ public class RefrigeratorView extends DevicesView {
             public void onClick(DialogInterface dialogInterface, int i) {
                 buttonMode.setText(chooseFridge[i]);
                 //aca hacer algo con la opcion elegida, mandarla a la api
+                String action = "setMode";
+                Map<String, String> param = new HashMap<>();
+                param.put("mode", chooseFridge[i]);
+                updateStatus(action, param);
                 dialogInterface.dismiss();
             }
         });
@@ -148,14 +151,13 @@ public class RefrigeratorView extends DevicesView {
     private  RefrigeratorState processStatus(JSONObject object){
         int temp = 2;
         int freezerTemp = -10 ;
-        RefrigeratorState.Mode mode = RefrigeratorState.Mode.def;
+        String mode = "default";
 
         try {
             temp = object.getInt("temperature");
             freezerTemp = object.getInt("freezerTemperature");
-            mode = RefrigeratorState.getModeFromString(
-                    object.getString("mode")
-            );
+            mode = object.getString("mode");
+
 
             Log.d("REFRI", "Yo, i'm here bro");
         } catch (JSONException e) {
@@ -170,14 +172,18 @@ public class RefrigeratorView extends DevicesView {
         seekBarRefri.setProgress(refri.getTemperature());
         seekBarFreezer.setProgress(refri.getFreezerTemperature());
 
+        String[] arr = view.getResources().getStringArray(R.array.choose_fridge);
+        int option = getCurrentOption(arr, refri.getMode());
+        buttonMode.setText(arr[option]);
 
-        //buttonMode.setSelection(refri.getMode());
     }
 
 
     private void setupSeekBar(){
         seekBarRefri.setMax(8);
         seekBarFreezer.setMax(20);
+
+
     }
 
 
