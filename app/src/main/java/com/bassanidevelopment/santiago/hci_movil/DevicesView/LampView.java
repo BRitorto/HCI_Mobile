@@ -148,8 +148,7 @@ public class LampView extends DevicesView {
         aSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                aSwitch.setChecked(!aSwitch.isChecked());
-                state.setStatus(aSwitch.isChecked());
+                state.setStatus(!aSwitch.isChecked());
                 String action = (state.isStatus())? "turnOff" : "turnOn";
 
                 updateStatus(action, new HashMap<String, String>());
