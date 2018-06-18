@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="56dp"
+    android:layout_marginBottom="86dp">
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/colorPrimary"
+        android:fontFamily="roboto"
+        android:gravity="center"
+        android:text="@string/notifications"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:orientation="vertical"
+            android:paddingBottom="24dp"
+            android:paddingTop="14dp">
+
+            <Switch
+                android:id="@+id/blind_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:text="@string/blind" />
+
+            <Switch
+                android:id="@+id/lamp_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:text="@string/lamp" />
+
+            <Switch
+                android:id="@+id/oven_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:text="@string/oven" />
+
+            <Switch
+                android:id="@+id/ac_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:text="@string/ac" />
+
+            <Switch
+                android:id="@+id/door_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:text="@string/door" />
+
+            <Switch
+                android:id="@+id/refri_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:text="@string/refri_temp" />
+
+            <Switch
+                android:id="@+id/timer_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:text="@string/timer" />
+
+            <Switch
+                android:id="@+id/alarm_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:paddingEnd="24dp"
+                android:paddingStart="24dp"
+                android:paddingTop="24dp"
+                android:text="@string/alarm" />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
