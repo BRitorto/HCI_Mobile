@@ -35,6 +35,14 @@
     <string name="notifications">Notifications</string>
     <string name="help">Help</string>
     <string name="about_dev">About Developer</string>
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="ac">Air Conditioner</string>
+    <string name="door">Door</string>
+    <string name="timer">Timer</string>
+    <string name="blind">Blind</string>
+    <string name="oven">Oven</string>
+    <string name="lamp">Lamp</string>
+    <string name="alarm">Alarm</string>
     
     <string-array name="setHeat">
         <item>conventional</item>
@@ -47,23 +55,6 @@
         <item>vacation</item>
         <item>party</item>
     </string-array>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     </resources>

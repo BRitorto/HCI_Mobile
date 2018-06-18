@@ -5,9 +5,10 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
+
 import android.widget.Button;
+import android.widget.ArrayAdapter;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.DevicesAPI;
@@ -18,6 +19,7 @@ import com.google.gson.JsonObject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +40,7 @@ public class RefrigeratorView extends DevicesView {
         seekBarRefri = view.findViewById(R.id.seekBar_refri);
         seekBarFreezer = view.findViewById(R.id.seekBar_freezer);
         buttonMode = view.findViewById(R.id.choose_fridge);
+
 
         //setupSeekBar();
 
@@ -69,8 +72,29 @@ public class RefrigeratorView extends DevicesView {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 refri.setFreezerTemperature(seekBar.getProgress());
-                updateStatus("setFreezerTemperature",
-                        "["+ String.valueOf(refri.getFreezerTemperature())+"]");
+                Map<String , String> param = new HashMap<>();
+                param.put("temperature", String.valueOf(refri.getFreezerTemperature()));
+                updateStatus("setFreezerTemperature",param);
+            }
+        });
+
+        seekBarRefri.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                refri.setTemperature(seekBar.getProgress());
+                Map<String , String> param = new HashMap<>();
+                param.put("temperature", String.valueOf(refri.getTemperature()));
+                updateStatus("setTemperature",param);
             }
         });
     }
@@ -118,7 +142,7 @@ public class RefrigeratorView extends DevicesView {
             }
         };
 
-        DevicesAPI.runActionInDevice(context, devId, "getState",null ,callback);
+        DevicesAPI.deviceAction(context, callback, devId, "getState",new HashMap<String, String>() );
     }
 
 
@@ -152,7 +176,7 @@ public class RefrigeratorView extends DevicesView {
     }
 
 
-    private  void updateStatus(String action,String param){
+    private  void updateStatus(String action,Map<String,String> param){
         Callback callback = new Callback() {
             @Override
             public boolean handleResponse(JSONObject response) {
@@ -171,7 +195,7 @@ public class RefrigeratorView extends DevicesView {
             }
         };
 
-        DevicesAPI.runActionInDevice(this.context, devId, action, param,callback);
+        DevicesAPI.deviceAction(this.context,callback,devId, action, param);
 
     }
 
@@ -180,5 +204,6 @@ public class RefrigeratorView extends DevicesView {
         seekBarRefri.setMax(8);
         seekBarFreezer.setMax(20);
     }
+
 
 }

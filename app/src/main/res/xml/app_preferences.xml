@@ -3,28 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <PreferenceCategory android:title="@string/settings">
-
-        <ListPreference
-            android:key="list_preference" />
-
         <Preference
             android:title="@string/language">
-            <intent android:action="android.intent.action.VIEW"/>
+            <intent android:action="preferences"/>
         </Preference>
 
         <Preference
             android:title="@string/notifications">
-            <intent android:action="android.intent.action.VIEW"/>
+            <intent android:action="notification_preference"
+                    android:targetClass="com.bassanidevelopment.santiago.hci_movil.MainActivity"/>
         </Preference>
 
         <Preference
             android:title="@string/help">
-            <intent android:action="android.intent.action.VIEW"/>
+            <intent android:action="preferences"/>
         </Preference>
 
         <Preference
             android:title="@string/about_dev">
-            <intent android:action="android.intent.action.VIEW"/>
+            <intent android:action="preferences"/>
         </Preference>
 
     </PreferenceCategory>

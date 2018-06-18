@@ -1,6 +1,7 @@
 package com.bassanidevelopment.santiago.hci_movil.API;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.PatternMatcher;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -25,6 +26,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DevicesAPI  {
 
@@ -226,7 +229,19 @@ public class DevicesAPI  {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("Error Device Action", "Event couldn't be reached");
-                        System.out.println(error);
+                        String response = error.getMessage();
+                        Pattern pattern = Pattern.compile(" \\{.*\\}");
+                        Matcher matcher = pattern.matcher(response);
+                        if(matcher.find()){
+                            try {
+                                JSONObject jsonObject = new JSONObject(matcher.group(0));
+                                callback.handleResponse(jsonObject);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        System.out.println("that was an error");
                     }
                 });
 
@@ -246,7 +261,7 @@ public class DevicesAPI  {
                     }
                 });
 
-        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(stringRequest, "deviceAction");
+        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(jsonArrayRequest, "deviceAction");
 
     }
 
@@ -337,7 +352,7 @@ public class DevicesAPI  {
 
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(Request.Method.PUT,
                 BASE_URL + "devices/" + deviceId + "/" + actionName,
-                new JSONObject(),
+                jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
