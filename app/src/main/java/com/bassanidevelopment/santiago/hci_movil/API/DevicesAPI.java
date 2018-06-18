@@ -313,6 +313,33 @@ public class DevicesAPI  {
         SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(request, "deviceEvents");
     }
 
+    public static void getDeviceEvents(Context context,String devId, final Callback callback)throws JSONException{
+        final StringRequest request = new StringRequest(Request.Method.GET,
+                BASE_URL + "devices/"+devId+"events",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("Response",response);
+                        JSONArray events = extractEvents(response);
+                        JSONObject eventResponse = new JSONObject();
+                        try {
+                            eventResponse.put("events",events);
+                            callback.handleResponse(eventResponse);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error","Event couldn't be reached");
+                    }
+                });
+        SingletonAPI.getInstance(context.getApplicationContext()).addToRequestQueue(request, "deviceEvents");
+    }
+
     public static JSONArray extractEvents(String responseStream){
 
 

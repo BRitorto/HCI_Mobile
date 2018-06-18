@@ -15,10 +15,12 @@ public abstract class DevicesView {
     protected Context context;
 
     protected   int getCurrentOption(String [] arr, String currentOption){
-        int option = -1;
+        int option = 0;
         System.out.println(currentOption);
         for(int i =0; i < arr.length; i++){
-            if(arr[i].equals(currentOption))
+            String possible =  arr[i];
+            possible = possible.toLowerCase();
+            if(possible.equals(currentOption.toLowerCase()))
                 option = i;
         }
         return  option;

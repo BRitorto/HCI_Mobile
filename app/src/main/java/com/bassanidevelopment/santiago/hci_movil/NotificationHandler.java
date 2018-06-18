@@ -148,6 +148,7 @@ public class NotificationHandler extends BroadcastReceiver{
             @Override
             public boolean handleResponse(JSONObject response) {
                 Log.d("Response to events", response.toString());
+
                 return true;
             }
 

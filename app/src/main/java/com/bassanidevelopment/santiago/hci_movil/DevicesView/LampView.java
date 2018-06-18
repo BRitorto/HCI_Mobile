@@ -109,12 +109,18 @@ public class LampView extends DevicesView {
 
 
 
-    private  void setLayoutDisplay(){
+    private  void setLayoutDisplay() {
         aSwitch.setChecked(state.isStatus());
         seekBar.setProgress(state.getBrightness());
         String color = state.getColor();
-        color = "#"+color;
-        chosenColor.setBackgroundColor(Color.parseColor(color));
+        color = "#" + color;
+        try {
+            chosenColor.setBackgroundColor(Color.parseColor(color));
+
+        }catch (Exception e){
+            System.out.println(Color.parseColor(color));
+            System.out.println("this color is not found");
+        }
     }
 
     private  void setupHandlers(){
