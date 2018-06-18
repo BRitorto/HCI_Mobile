@@ -107,10 +107,11 @@ public class DoorView extends DevicesView{
         toggleLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toggleLock.setChecked(!toggleLock.isChecked());
-                state.setLock((toggleLock.isChecked())?"locked":"unlocked");
-                String action = (toggleLock.isChecked())? "lock": "unlock";
+
+                state.setLock((!toggleLock.isChecked())?"locked":"unlocked");
+                String action = (!toggleLock.isChecked())? "unlock": "lock";
                 updateStatus(action, new HashMap<String, String>());
+                toggleLock.setChecked(toggleLock.isChecked());
             }
         });
     }

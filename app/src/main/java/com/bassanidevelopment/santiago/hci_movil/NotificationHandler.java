@@ -54,7 +54,8 @@ public class NotificationHandler extends BroadcastReceiver{
                 try {
                     JSONArray deviceArray = response.getJSONArray("devices");
                     for(int i  = 0; i < deviceArray.length(); i++){
-                        checkEvents(deviceArray.getJSONObject(i).getString("id"));
+                        checkEvents(deviceArray.getJSONObject(i).getString("id"),
+                                deviceArray.getJSONObject(i).getString("name") );
 
                     }
                     return  true;
@@ -77,7 +78,7 @@ public class NotificationHandler extends BroadcastReceiver{
             }
         };
 
-        //DevicesAPI.getAllDevices(checkEachDev,this.context);
+        DevicesAPI.getAllDevices(checkEachDev,this.context);
         Callback callback_2 = new Callback() {
             @Override
             public boolean handleResponse(JSONObject response) {
@@ -105,11 +106,11 @@ public class NotificationHandler extends BroadcastReceiver{
 
             }
         };
-        try {
-            DevicesAPI.getEvents(context,callback_2 );
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            DevicesAPI.getEvents(context,callback_2 );
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void notifyUser(Object events) {
@@ -143,7 +144,7 @@ public class NotificationHandler extends BroadcastReceiver{
         notificationManager.notify(MY_NOTIFICATION_ID, notification);
     }
 
-    public  void checkEvents(String id){
+    public  void checkEvents(String id, String name){
         Callback callNotification = new Callback() {
             @Override
             public boolean handleResponse(JSONObject response) {
