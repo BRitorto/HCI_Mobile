@@ -35,22 +35,7 @@
     <string name="notifications">Notifications</string>
     <string name="help">Help</string>
     <string name="about_dev">About Developer</string>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="title_activity_notification">NotificationActivity</string>
 
 
 </resources>

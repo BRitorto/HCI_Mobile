@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.action_settings:
                 startActivity(new Intent(MainActivity.this, AppPreferences.class));
-                //Toast.makeText(this, "Settings Selected", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 break;

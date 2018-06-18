@@ -19,9 +19,24 @@
             </intent-filter>
         </activity>
         <activity android:name=".API.Loading" />
-        <activity android:name=".AppPreferences"/>
+        <activity android:name=".AppPreferences">
+            <intent-filter>
+                <action android:name="preferences"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <receiver android:name=".NotificationHandler" />
+
+        <activity
+            android:name=".NotificationActivity"
+            android:label="@string/title_activity_notification"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="notification_preference"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
