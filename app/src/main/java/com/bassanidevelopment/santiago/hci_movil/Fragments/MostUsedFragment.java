@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.bassanidevelopment.santiago.hci_movil.API.APIController;
 import com.bassanidevelopment.santiago.hci_movil.API.APIResponseHandler;
@@ -29,19 +30,24 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MostUsedFragment extends Fragment {
     private static final String TAG = "Most Used Fragment";
 
-    private Switch mostused1,mostused2,mostused3;
+    private TextView mostused1,mostused2,mostused3;
 
     public int buttonIndex;
 
     private Toolbar myToolbar;
 
-    private List<Switch>  mostUsedArr;
+    private List<TextView>  mostUsedArr;
+    private List<Device> mostUsedDev;
 
+    Map<Device, Integer> mostUsedMap;
     private int setupIndex = 0;
+
+    public String currentDevId ;
 
     @Nullable
     @Override
@@ -51,6 +57,8 @@ public class MostUsedFragment extends Fragment {
         myToolbar = getActivity().findViewById(R.id.upper_toolbar);
         myToolbar.setTitle(R.string.home);
         myToolbar.setNavigationIcon(null);
+
+        mostUsedMap = new HashMap<>();
 
         mostused1= view.findViewById(R.id.mostUsed1);
         mostused2= view.findViewById(R.id.mostUsed2);
@@ -62,7 +70,10 @@ public class MostUsedFragment extends Fragment {
         mostUsedArr.add(mostused3);
 
 
+        mostUsedDev = new ArrayList<>();
+
         Log.d(TAG,"creating ...");
+
 
         setupLayout();
 
@@ -71,11 +82,34 @@ public class MostUsedFragment extends Fragment {
     }
 
 
+    private void setupHanlders(){
+        final Callback callback = new Callback() {
+            @Override
+            public boolean handleResponse(JSONObject response) {
+                //setState(devId);
+                return  true;
+            }
+
+            @Override
+            public void showSpinner() {
+
+            }
+
+            @Override
+            public void hideSpinner() {
+
+            }
+        };
+
+    }
+
     private void setupLayout(){
         //        firts attempt
-        for(Switch aSwitch: mostUsedArr){
+        for(TextView aSwitch: mostUsedArr){
             aSwitch.setVisibility(View.INVISIBLE);
         }
+
+        mostUsedDev.clear();
 
         Callback callback = new Callback() {
             @Override
@@ -111,72 +145,27 @@ public class MostUsedFragment extends Fragment {
 
     private void setupDevs(List<Device> devices){
 
-        Callback callback = new Callback() {
-            @Override
-            public boolean handleResponse(JSONObject response) {
-
-                try {
-                    JSONObject result =  response.getJSONObject("result");
-                    String status = result.getString("status");
-                    if(setupIndex < mostUsedArr.size()) {
-                        if (status.equals("off") || status.equals("opened")) {
-                            mostUsedArr.get(setupIndex).setChecked(false);
-                        } else {
-                            mostUsedArr.get(setupIndex).setChecked(true);
-                        }
-                        setupIndex++;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return false;
-            }
-
-            @Override
-            public void showSpinner() {
-
-            }
-
-            @Override
-            public void hideSpinner() {
-
-            }
-        };
-
-//        if(devices.size() > 2) {
-//            mostused1.setText(devices.get(0).getName());
-//            mostused2.setText(devices.get(1).getName());
-//            mostused3.setText(devices.get(2).getName());
-//
-//            for(int i= 0 ; i < 2; i++){
-//                DevicesAPI.deviceAction(getContext(), callback, devices.get(i).getId(), "getState",new HashMap<String, String>() );
-//            }
-//        }
-
-
 
 
         int counter = 0;
         for(Device dev : devices){
-            if (counter < mostUsedArr.size()-1) {
+            if (counter < mostUsedArr.size()) {
                 mostUsedArr.get(counter).setText(dev.getName());
                 mostUsedArr.get(counter).setVisibility(View.VISIBLE);
-                DevicesAPI.deviceAction(getContext(), callback, devices.get(counter).getId(), "getState",new HashMap<String, String>() );
                 counter++;
             }else
                 break;
 
         }
 
-
-
-
     }
+
 
     @Override
     public void onResume() {
         super.onResume();
-        setupLayout();
+        //
+        // setupLayout();
         setupIndex = 0;
     }
 }
