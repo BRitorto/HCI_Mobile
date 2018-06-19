@@ -19,18 +19,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.bassanidevelopment.santiago.hci_movil.API.SingletonAPI;
-import com.bassanidevelopment.santiago.hci_movil.Fragments.DeviceTypeFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.MostUsedFragment;
-import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoomsFragment;
 import com.bassanidevelopment.santiago.hci_movil.Fragments.RoutinesFragment;
 
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 

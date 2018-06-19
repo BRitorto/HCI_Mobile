@@ -2,7 +2,6 @@ package com.bassanidevelopment.santiago.hci_movil.API;
 
 
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,7 +12,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.bassanidevelopment.santiago.hci_movil.MainActivity;
 import com.bassanidevelopment.santiago.hci_movil.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

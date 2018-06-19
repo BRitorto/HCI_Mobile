@@ -40,10 +40,10 @@
     <string name="lamp">Lámpara</string>
     <string name="alarm">Alarma</string>
     <string name="refri">Heladera</string>
-    <string name="notificationText">"el dispositivo cambio de estado"</string>
+    <string name="notificationText">"El dispositivo cambió de estado"</string>
     <string name="errorAddRoom">"Se produjo un error al crear "</string>
-    <string name="successAddRoom"> creado exitosamente</string>
-    <string name="networkError"> no tienes coneccion a internet, porfavor activa tu red</string>
+    <string name="successAddRoom">Creado exitosamente</string>
+    <string name="networkError"> no tienes coneccion a internet, por favor activa tu red</string>
 
 
 

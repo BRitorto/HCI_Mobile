@@ -1,18 +1,11 @@
 package com.bassanidevelopment.santiago.hci_movil;
 
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.SharedPreferences;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
-import com.bassanidevelopment.santiago.hci_movil.R;
 
 public class AppPreferences extends AppCompatActivity {
 

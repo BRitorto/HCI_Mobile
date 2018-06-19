@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +15,7 @@ import android.widget.Toast;
 
 import com.bassanidevelopment.santiago.hci_movil.API.Callback;
 import com.bassanidevelopment.santiago.hci_movil.API.DevicesTypesAPI;
-import com.bassanidevelopment.santiago.hci_movil.API.RoomsAPI;
-import com.bassanidevelopment.santiago.hci_movil.Model.APIObject;
 import com.bassanidevelopment.santiago.hci_movil.Model.DeviceType;
-import com.bassanidevelopment.santiago.hci_movil.Model.Room;
-import com.bassanidevelopment.santiago.hci_movil.Model.RoomGridAdapter;
 import com.bassanidevelopment.santiago.hci_movil.Model.TypesGridAdapter;
 import com.bassanidevelopment.santiago.hci_movil.R;
 
@@ -112,8 +107,6 @@ public class DeviceTypeFragment extends Fragment implements AdapterView.OnItemCl
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast t = Toast.makeText(getContext(), types.get(i).getName(), Toast.LENGTH_SHORT);
-        t.show();
         DeviceType type = types.get(i);
         type.setAsCurrenttype(getActivity(),getString(R.string.preference_file_key));
 
