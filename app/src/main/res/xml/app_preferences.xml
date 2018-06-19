@@ -12,12 +12,16 @@
 
         <Preference
             android:title="@string/help">
-            <intent android:action="preferences"/>
+            <intent android:action="help"
+            android:targetClass="com.bassanidevelopment.santiago.hci_movil.MainActivity"/>
+
         </Preference>
 
         <Preference
             android:title="@string/about_dev">
-            <intent android:action="preferences"/>
+            <intent android:action="about_dev"
+                android:targetClass="com.bassanidevelopment.santiago.hci_movil.MainActivity"/>
+
         </Preference>
 
     </PreferenceCategory>

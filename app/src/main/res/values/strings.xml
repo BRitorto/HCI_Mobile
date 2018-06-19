@@ -104,5 +104,13 @@
         <item>party</item>
     </string-array>
 
+    <string name="about_text">Developers: Santiago Bassani, Bianca Ritorto, Alejo Aquili,
+    Francisco Sanguineti.</string>
+
+    <string name="help_text">For help using the app, please contact the developers.
+    britorto@itba.edu.ar
+    sbassani@itba.edu.ar
+    aaquili@itba.edu.ar
+    fsanguineti@itba.edu.ar</string>
 
     </resources>
